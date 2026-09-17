@@ -26,6 +26,7 @@ export default function EnquiryForm({
   defaultCollege = '',
   variant = 'light',
   className = '',
+  headingId,
 }) {
   const [values, setValues] = useState({ ...initialValues, college: defaultCollege });
   const [errors, setErrors] = useState({});
@@ -107,7 +108,7 @@ export default function EnquiryForm({
     >
       <div className={classes.heading}>
         <p className={classes.eyebrow}>Free counselling</p>
-        <h2>Start Your Admission Enquiry</h2>
+        <h2 id={headingId}>Start Your Admission Enquiry</h2>
       </div>
 
       <div className={classes.grid}>

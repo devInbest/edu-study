@@ -27,8 +27,8 @@
   align-items: center;
 
   @include desktop {
-    grid-template-columns: 1.05fr 0.85fr 0.95fr;
-    gap: 1.5rem;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2.5rem;
   }
 }
 
@@ -165,6 +165,9 @@
 
   @include desktop {
     display: block;
+    justify-self: end;
+    width: 100%;
+    max-width: 28rem;
   }
 }
 
@@ -222,10 +225,3 @@
   }
 }
 
-.formWrap {
-  scroll-margin-top: 5.5rem;
-
-  @include desktop {
-    align-self: stretch;
-  }
-}

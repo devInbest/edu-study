@@ -4,7 +4,7 @@ export const heroContent = {
   supporting:
     'Trusted admission guidance, career counselling, and local guardian support for students across India.',
   ctas: [
-    { label: 'Get Free Counselling', href: '#enquiry', variant: 'filled' },
+    { label: 'Get Free Counselling', href: '/contact', variant: 'filled' },
     { label: 'WhatsApp Us', href: 'whatsapp', variant: 'outline' },
     { label: 'Explore Colleges', href: '/colleges', variant: 'subtle' },
   ],

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 
 import { Button } from '@mantine/core';
@@ -13,7 +14,7 @@ import {
 import { motion } from 'framer-motion';
 
 import Container from '@/components/common/Container/Container';
-import EnquiryForm from '@/components/forms/EnquiryForm/EnquiryForm';
+import EnquiryModal from '@/components/forms/EnquiryModal/EnquiryModal';
 import { getWhatsAppUrl } from '@/utils/helpers';
 
 import classes from './HeroSection.module.scss';
@@ -25,6 +26,8 @@ const pillars = [
 ];
 
 export default function HeroSection() {
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
+
   return (
     <section className={classes.hero}>
       <div className={classes.glow} aria-hidden="true" />
@@ -72,11 +75,11 @@ export default function HeroSection() {
 
           <div className={classes.actions}>
             <Button
-              component="a"
-              href="#enquiry"
+              type="button"
               size="md"
               rightSection={<IconArrowRight size={16} />}
               className={classes.goldBtn}
+              onClick={() => setEnquiryOpen(true)}
             >
               Get Free Counselling
             </Button>
@@ -121,17 +124,9 @@ export default function HeroSection() {
             </div>
           </div>
         </motion.div>
-
-        <motion.div
-          id="enquiry"
-          className={classes.formWrap}
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <EnquiryForm compact variant="dark" />
-        </motion.div>
       </Container>
+
+      <EnquiryModal opened={enquiryOpen} onClose={() => setEnquiryOpen(false)} />
     </section>
   );
 }
