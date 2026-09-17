@@ -1,0 +1,60 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  article {
+    padding: 1.5rem 1.35rem;
+    background: #fff;
+    border-top: 3px solid $gold;
+
+    h2 {
+      font-size: 1.35rem;
+      color: $deep-blue;
+      margin-bottom: 0.55rem;
+    }
+
+    p {
+      color: var(--brand-muted);
+    }
+  }
+}
+
+.wide {
+  @include tablet {
+    grid-column: 1 / -1;
+  }
+}
+
+.cta {
+  padding-bottom: var(--section-space);
+}
+
+.ctaInner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba($deep-blue, 0.04);
+
+  h2 {
+    color: $deep-blue;
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    color: var(--brand-muted);
+  }
+}

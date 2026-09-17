@@ -1,0 +1,89 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+  background:
+    linear-gradient(180deg, rgba($deep-blue, 0.03), transparent 30%),
+    #eef3f9;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: end;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gold;
+  margin-bottom: 0.45rem;
+}
+
+.allLink {
+  font-weight: 800;
+  color: $deep-blue-mid;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $gold;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.item {
+  padding: 1.45rem 1.3rem;
+  border-radius: 1.15rem;
+  background: #fff;
+  border: 1px solid rgba($deep-blue, 0.05);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.6rem;
+  transition: box-shadow 0.25s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-lift);
+  }
+
+  h3 {
+    font-size: 1.12rem;
+    color: $deep-blue;
+    font-family: var(--font-display), sans-serif;
+  }
+
+  p {
+    color: var(--brand-muted);
+    font-size: 0.94rem;
+  }
+
+  a {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+}
+
+.icon {
+  width: 3.1rem;
+  height: 3.1rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}

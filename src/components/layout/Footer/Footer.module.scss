@@ -1,0 +1,157 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.footer {
+  margin-top: 0;
+  background: linear-gradient(160deg, $deep-blue 0%, #071a2e 100%);
+  color: rgba(#fff, 0.9);
+}
+
+.inner {
+  padding-block: 3.2rem 2.4rem;
+  display: grid;
+  gap: 2rem;
+  justify-items: start;
+  text-align: left;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include desktop {
+    grid-template-columns: 1.4fr 1fr 1fr 0.85fr;
+  }
+}
+
+.brand {
+  display: grid;
+  gap: 1.15rem;
+  align-content: start;
+  justify-items: start;
+  width: 100%;
+  text-align: left;
+}
+
+.connect {
+  display: grid;
+  gap: 0.7rem;
+  justify-items: start;
+  width: 100%;
+  text-align: left;
+
+  h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: $gold-light;
+    font-family: var(--font-body), sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
+
+.contactItem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  width: fit-content;
+  color: rgba(#fff, 0.82);
+  font-size: 0.92rem;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $gold-light;
+  }
+}
+
+.contactIcon {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: rgba(#fff, 0.1);
+  color: $gold-light;
+}
+
+.column {
+  width: 100%;
+  text-align: left;
+  justify-self: start;
+
+  h3 {
+    margin-bottom: 0.9rem;
+    font-size: 0.95rem;
+    color: $gold-light;
+    font-family: var(--font-body), sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+    justify-items: start;
+  }
+
+  a {
+    color: rgba(#fff, 0.78);
+    transition: color 0.2s ease;
+    font-size: 0.94rem;
+
+    &:hover {
+      color: $gold-light;
+    }
+  }
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  margin-top: 0.25rem;
+  width: 100%;
+}
+
+.socialBtn {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+  }
+}
+
+.facebook {
+  background: #1877f2;
+}
+
+.instagram {
+  background: linear-gradient(45deg, #f58529, #dd2a7b 45%, #8134af 70%, #515bd4);
+}
+
+.whatsapp {
+  background: #25d366;
+}
+
+.bottom {
+  width: 100%;
+  padding-block: 1.1rem 1.5rem;
+  border-top: 1px solid rgba(#fff, 0.1);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.88rem;
+  color: rgba(#fff, 0.65);
+}

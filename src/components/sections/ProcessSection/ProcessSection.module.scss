@@ -1,0 +1,68 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+  background: linear-gradient(180deg, rgba($gold, 0.08), transparent 40%);
+}
+
+.header {
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gold;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+
+  @include tablet {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  li {
+    padding: 1.25rem 1rem;
+    background: #fff;
+    border-radius: 1rem;
+    border-top: 3px solid $gold;
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    gap: 0.45rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lift);
+    }
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    color: $deep-blue;
+    font-family: var(--font-display), sans-serif;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: var(--brand-muted);
+  }
+}
+
+.index {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: $gold;
+}

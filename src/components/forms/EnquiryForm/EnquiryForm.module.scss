@@ -1,0 +1,125 @@
+@use '@/styles/variables.scss' as *;
+
+.form {
+  background: #fff;
+  border: 1px solid rgba($deep-blue, 0.08);
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.2rem 1.3rem;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
+.compact {
+  padding: 1.05rem 1rem 1.15rem;
+  gap: 0.65rem;
+}
+
+.dark {
+  background: linear-gradient(165deg, #002d62 0%, #0a3d7a 55%, #123f72 100%);
+  border: 1px solid rgba(#fff, 0.12);
+  box-shadow: 0 28px 60px -24px rgba(0, 20, 50, 0.65);
+  color: #fff;
+
+  .heading {
+    h2 {
+      color: #fff;
+      font-size: 1.45rem;
+    }
+
+    p:last-child {
+      color: rgba(#fff, 0.72);
+    }
+  }
+
+  .eyebrow {
+    color: $gold-light;
+  }
+
+  .submit {
+    background: linear-gradient(135deg, $gold, $gold-light) !important;
+    color: $deep-blue !important;
+    font-weight: 800;
+    border: none !important;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+  }
+
+  .successMsg {
+    color: #9dffc2;
+  }
+
+  .errorMsg {
+    color: #ffb4b4;
+  }
+}
+
+.heading {
+  display: grid;
+  gap: 0.3rem;
+
+  h2 {
+    font-family: var(--font-display), sans-serif;
+    font-size: 1.55rem;
+    color: $deep-blue;
+  }
+
+  p:last-child {
+    color: var(--brand-muted);
+    font-size: 0.92rem;
+  }
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gold;
+}
+
+.grid {
+  display: grid;
+  gap: 0.55rem;
+
+  @media (min-width: 560px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.submit {
+  background: linear-gradient(135deg, $deep-blue, $deep-blue-mid) !important;
+  border: none !important;
+  margin-top: 0;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.successMsg {
+  margin: 0;
+  color: #0f7a45;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.errorMsg {
+  margin: 0;
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 600;
+}

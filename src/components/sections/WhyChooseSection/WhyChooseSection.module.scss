@@ -1,0 +1,150 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+
+  @include desktop {
+    grid-template-columns: 1.05fr 1fr;
+  }
+}
+
+.why {
+  position: relative;
+  border-radius: 1.35rem;
+  overflow: hidden;
+  min-height: 420px;
+  background:
+    linear-gradient(120deg, rgba($deep-blue, 0.88) 0%, rgba(#001d40, 0.72) 55%, rgba($deep-blue, 0.55) 100%),
+    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=80')
+      center / cover no-repeat;
+  color: #fff;
+}
+
+.whyInner {
+  position: relative;
+  z-index: 1;
+  padding: 1.8rem 1.5rem;
+  display: grid;
+  gap: 1rem;
+  height: 100%;
+
+  h2 {
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(1.55rem, 2.6vw, 2rem);
+    max-width: 16ch;
+    line-height: 1.2;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: rgba(#fff, 0.92);
+  }
+}
+
+.check {
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: $gold;
+  color: $deep-blue;
+  margin-top: 0.1rem;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gold-light;
+}
+
+.destinations {
+  padding: 1.6rem 1.4rem;
+  border-radius: 1.35rem;
+  background: #fff;
+  border: 1px solid rgba($deep-blue, 0.06);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+
+  h2 {
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    color: $deep-blue;
+  }
+
+  .eyebrow {
+    color: $gold;
+  }
+}
+
+.flags {
+  display: grid;
+  gap: 0.7rem;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.flagCard {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.8rem;
+  border-radius: 0.9rem;
+  background: rgba($deep-blue, 0.03);
+  border: 1px solid rgba($deep-blue, 0.05);
+  transition: transform 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: rgba($gold, 0.12);
+  }
+
+  h3 {
+    font-size: 0.95rem;
+    color: $deep-blue;
+    margin-bottom: 0.15rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+    color: var(--brand-muted);
+    line-height: 1.45;
+  }
+}
+
+.flag {
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.viewBtn {
+  width: fit-content;
+  background: linear-gradient(135deg, $deep-blue, $deep-blue-mid) !important;
+  border: none !important;
+  font-weight: 700;
+}

@@ -1,0 +1,192 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: linear-gradient(90deg, #001d40 0%, $deep-blue 50%, #0a3d7a 100%);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.55);
+}
+
+.inner {
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.desktopNav,
+.desktopActions {
+  display: none;
+
+  @include tablet {
+    display: flex;
+  }
+}
+
+.desktopNav {
+  > ul {
+    display: flex;
+    align-items: center;
+    gap: 1.55rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a,
+  .trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: rgba(#fff, 0.82);
+    transition: color 0.2s ease;
+    padding: 0;
+    padding-bottom: 0.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: inherit;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -0.15rem;
+      width: 0;
+      height: 0.18rem;
+      border-radius: 999px;
+      background: $gold;
+      transition: width 0.25s ease;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:hover::after,
+    &.active::after {
+      width: 100%;
+    }
+  }
+}
+
+.hasDropdown {
+  position: relative;
+
+  &.dropdownOpen,
+  &:hover {
+    .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+      pointer-events: auto;
+    }
+
+    .chevron {
+      transform: rotate(180deg);
+    }
+
+    .trigger {
+      color: #fff;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  min-width: 14.5rem;
+  margin: 0;
+  padding: 0.7rem 0.45rem 0.45rem;
+  list-style: none;
+  transform: translate(-50%, 0.35rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  pointer-events: none;
+  z-index: 50;
+
+  // Visual panel (keeps a hover bridge under the trigger)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.45);
+    z-index: -1;
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    color: $deep-blue;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    &::after {
+      display: none;
+    }
+
+    &:hover {
+      background: rgba($gold, 0.22);
+      color: $deep-blue;
+    }
+
+    &.active {
+      background: rgba($gold, 0.28);
+      color: $deep-blue !important;
+    }
+  }
+}
+
+.active {
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.desktopActions {
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.social {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+  }
+}
+
+.facebook {
+  background: #1877f2;
+}
+
+.instagram {
+  background: linear-gradient(45deg, #f58529, #dd2a7b 45%, #8134af 70%, #515bd4);
+}

@@ -1,0 +1,26 @@
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.content {
+  display: grid;
+  gap: 1.15rem;
+  max-width: 820px;
+
+  article {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba($deep-blue, 0.08);
+
+    h2 {
+      font-size: 1.15rem;
+      color: $deep-blue;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      color: var(--brand-muted);
+    }
+  }
+}

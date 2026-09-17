@@ -1,0 +1,86 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+  background: linear-gradient(180deg, #eef3f9 0%, #f7f9fc 100%);
+}
+
+.header {
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gold;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+
+  @include tablet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card {
+  padding: 1.4rem 1.25rem;
+  border-radius: 1.15rem;
+  background: #fff;
+  border: 1px solid rgba($deep-blue, 0.06);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.9rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  h3 {
+    font-size: 1rem;
+    color: $deep-blue;
+  }
+
+  p {
+    font-size: 0.82rem;
+    color: var(--brand-muted);
+    font-weight: 600;
+  }
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: $deep-blue;
+  background: linear-gradient(145deg, rgba($gold, 0.85), rgba($gold-light, 0.95));
+}
+
+.quote {
+  color: var(--brand-muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.stars {
+  display: flex;
+  gap: 0.2rem;
+  color: $gold;
+}

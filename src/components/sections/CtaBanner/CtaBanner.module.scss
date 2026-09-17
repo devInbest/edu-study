@@ -1,0 +1,65 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: 1.5rem var(--section-space);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.9rem 1.7rem;
+  border-radius: 1.25rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(115deg, rgba($deep-blue, 0.94) 0%, rgba($deep-blue-mid, 0.88) 55%, rgba(#001d40, 0.9) 100%),
+    url('https://images.unsplash.com/photo-1523580846011-d95c304781bf?auto=format&fit=crop&w=1600&q=80')
+      center / cover no-repeat;
+  box-shadow: var(--shadow-lift);
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: -3rem;
+    top: -3rem;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    background: rgba($gold, 0.22);
+  }
+
+  h2 {
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(1.55rem, 3vw, 2.1rem);
+    margin-bottom: 0.35rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  p {
+    color: rgba(#fff, 0.8);
+    max-width: 42ch;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 1;
+}
+
+.primary {
+  background: linear-gradient(135deg, $gold, $gold-light) !important;
+  color: $deep-blue !important;
+  border: none !important;
+  font-weight: 800;
+}

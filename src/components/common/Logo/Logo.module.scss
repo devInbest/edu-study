@@ -1,0 +1,33 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  max-width: min(52vw, 240px);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 3rem;
+  object-fit: contain;
+}
+
+.compact {
+  max-width: 180px;
+}
+
+.compact .image {
+  max-height: 2.4rem;
+}
+
+:global(footer) .logo {
+  max-width: 260px;
+  justify-self: start;
+  margin-inline: 0 auto 0 0;
+}
+
+:global(footer) .image {
+  max-height: 3.6rem;
+  object-position: left center;
+  margin-inline: 0;
+}
