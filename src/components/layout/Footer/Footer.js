@@ -1,20 +1,16 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
-import {
-  IconBrandFacebook,
-  IconBrandInstagram,
-  IconBrandWhatsapp,
-  IconMail,
-  IconPhone,
-} from '@tabler/icons-react';
+import { IconMail, IconPhone } from '@tabler/icons-react';
 
+import facebookIcon from '@/assets/icons/facebook.png';
+import instagramIcon from '@/assets/icons/instagram.png';
 import Container from '@/components/common/Container/Container';
 import Logo from '@/components/common/Logo/Logo';
 import env from '@/constants/env';
 import { quickLinks, serviceLinks } from '@/constants/navigation';
 import { socialLinks } from '@/constants/site';
 import { courseLinks } from '@/data/courses';
-import { getWhatsAppUrl } from '@/utils/helpers';
 
 import classes from './Footer.module.scss';
 
@@ -26,20 +22,12 @@ export default function Footer() {
     {
       href: socialLinks.facebook || '#',
       label: 'Facebook',
-      icon: IconBrandFacebook,
-      className: classes.facebook,
+      icon: facebookIcon,
     },
     {
       href: socialLinks.instagram || '#',
       label: 'Instagram',
-      icon: IconBrandInstagram,
-      className: classes.instagram,
-    },
-    {
-      href: getWhatsAppUrl(),
-      label: 'WhatsApp',
-      icon: IconBrandWhatsapp,
-      className: classes.whatsapp,
+      icon: instagramIcon,
     },
   ];
 
@@ -47,7 +35,7 @@ export default function Footer() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.brand}>
-          <Logo variant="dark" />
+          <Logo />
 
           <div className={classes.connect}>
             <h3>Connect With Us</h3>
@@ -67,16 +55,16 @@ export default function Footer() {
             </a>
 
             <div className={classes.socialIcons}>
-              {social.map(({ href, label, icon: Icon, className }) => (
+              {social.map(({ href, label, icon }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className={`${classes.socialBtn} ${className}`}
+                  className={classes.socialBtn}
                 >
-                  <Icon size={18} />
+                  <Image src={icon} alt="" width={48} height={48} className={classes.socialIcon} />
                 </a>
               ))}
             </div>

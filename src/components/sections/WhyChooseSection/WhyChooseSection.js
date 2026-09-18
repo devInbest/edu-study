@@ -51,7 +51,7 @@ export default function WhyChooseSection() {
             ))}
           </div>
           <AppButton href="/colleges" className={classes.viewBtn}>
-            View College List
+            View Colleges
           </AppButton>
         </ScrollReveal>
       </Container>

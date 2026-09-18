@@ -23,10 +23,13 @@ const initialValues = {
 
 export default function EnquiryForm({
   compact = false,
+  stacked = false,
   defaultCollege = '',
   variant = 'light',
   className = '',
   headingId,
+  title = 'Start Your Admission Enquiry',
+  eyebrow = 'Free counselling',
 }) {
   const [values, setValues] = useState({ ...initialValues, college: defaultCollege });
   const [errors, setErrors] = useState({});
@@ -102,13 +105,13 @@ export default function EnquiryForm({
 
   return (
     <form
-      className={`${classes.form} ${compact ? classes.compact : ''} ${isDark ? classes.dark : ''} ${className}`.trim()}
+      className={`${classes.form} ${compact ? classes.compact : ''} ${stacked ? classes.stacked : ''} ${isDark ? classes.dark : ''} ${className}`.trim()}
       onSubmit={handleSubmit}
       noValidate
     >
       <div className={classes.heading}>
-        <p className={classes.eyebrow}>Free counselling</p>
-        <h2 id={headingId}>Start Your Admission Enquiry</h2>
+        {eyebrow ? <p className={classes.eyebrow}>{eyebrow}</p> : null}
+        <h2 id={headingId}>{title}</h2>
       </div>
 
       <div className={classes.grid}>

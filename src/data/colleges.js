@@ -1,7 +1,10 @@
 /**
  * College catalogue from the client brief, grouped by stream and state.
  * Image URLs point at campus / institution photography for directory cards.
+ * Research profiles (overview, courses, cutoffs, etc.) come from College_Research_Report_2026.
  */
+
+import { getCollegeResearch } from './collegeResearch';
 
 function slugify(name) {
   return name
@@ -528,12 +531,23 @@ const rawColleges = [
 
 export const colleges = rawColleges.map((college, index) => {
   const slug = slugify(college.name);
+  const research = getCollegeResearch(slug) || null;
+  const overview = research?.overview?.trim();
+
   return {
     id: `college-${index + 1}`,
     slug,
     country: 'India',
-    shortDescription: `${college.name} in ${college.city}, ${college.state} offers ${college.degrees.join(', ')} programmes under the ${college.stream} pathway. Edu Study Consultancy helps students evaluate eligibility and plan applications.`,
+    shortDescription:
+      overview ||
+      `${college.name} in ${college.city}, ${college.state} offers ${college.degrees.join(', ')} programmes under the ${college.stream} pathway. Edu Study Consultancy helps students evaluate eligibility and plan applications.`,
     ...college,
+    eligibility:
+      research?.courses?.find((course) => course.eligibility)?.eligibility || college.eligibility,
+    admissionInfo: research?.admissionSteps?.length
+      ? research.admissionSteps.join(' ')
+      : college.admissionInfo,
+    research,
   };
 });
 

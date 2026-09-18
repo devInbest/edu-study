@@ -2,7 +2,8 @@
 @use '@/styles/variables.scss' as *;
 
 .section {
-  padding-block: 1.5rem var(--section-space);
+  padding-block: clamp(2rem, 4vw, 3rem);
+  background: #fff;
 }
 
 .inner {

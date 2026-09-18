@@ -1,6 +1,6 @@
+import Image from 'next/image';
+
 import {
-  IconBrandFacebook,
-  IconBrandInstagram,
   IconBrandWhatsapp,
   IconBuilding,
   IconMail,
@@ -9,6 +9,8 @@ import {
   IconShare,
 } from '@tabler/icons-react';
 
+import facebookIcon from '@/assets/icons/facebook.png';
+import instagramIcon from '@/assets/icons/instagram.png';
 import Container from '@/components/common/Container/Container';
 import PageHero from '@/components/common/PageHero/PageHero';
 import EnquiryForm from '@/components/forms/EnquiryForm/EnquiryForm';
@@ -46,7 +48,7 @@ export default function ContactPage() {
                   </span>
                   Office
                 </h2>
-                <p className={classes.withIcon}>
+                <p className={classes.item}>
                   <IconMapPin size={16} stroke={1.8} />
                   <span>
                     {contactPlaceholders.address}
@@ -63,11 +65,11 @@ export default function ContactPage() {
                   </span>
                   Reach us
                 </h2>
-                <a href={`mailto:${env.contactEmail}`} className={classes.reachLink}>
+                <a href={`mailto:${env.contactEmail}`} className={classes.itemLink}>
                   <IconMail size={16} stroke={1.8} />
                   <span>{env.contactEmail}</span>
                 </a>
-                <a href={phoneHref} className={classes.reachLink}>
+                <a href={phoneHref} className={classes.itemLink}>
                   <IconPhone size={16} stroke={1.8} />
                   <span>{env.contactPhone}</span>
                 </a>
@@ -75,7 +77,7 @@ export default function ContactPage() {
                   href={getWhatsAppUrl()}
                   target="_blank"
                   rel="noreferrer"
-                  className={classes.reachLink}
+                  className={classes.itemLink}
                 >
                   <IconBrandWhatsapp size={16} stroke={1.8} />
                   <span>Chat on WhatsApp</span>
@@ -95,25 +97,37 @@ export default function ContactPage() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Facebook"
-                    className={`${classes.socialBtn} ${classes.facebook}`}
+                    className={classes.socialBtn}
                   >
-                    <IconBrandFacebook size={18} />
+                    <Image
+                      src={facebookIcon}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className={classes.socialIcon}
+                    />
                   </a>
                   <a
                     href={socialLinks.instagram || '#'}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Instagram"
-                    className={`${classes.socialBtn} ${classes.instagram}`}
+                    className={classes.socialBtn}
                   >
-                    <IconBrandInstagram size={18} />
+                    <Image
+                      src={instagramIcon}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className={classes.socialIcon}
+                    />
                   </a>
                 </div>
               </article>
             </div>
 
             <div className={classes.formCol}>
-              <EnquiryForm />
+              <EnquiryForm compact variant="dark" />
             </div>
           </div>
 

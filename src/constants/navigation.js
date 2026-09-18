@@ -12,17 +12,13 @@ export const serviceLinks = [
 export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
-  {
-    label: 'Services',
-    href: '/services',
-    children: serviceLinks,
-  },
+  { label: 'Services', href: '/services' },
   {
     label: 'Courses',
     href: '/courses',
     children: courseLinks.map(({ label, href }) => ({ label, href })),
   },
-  { label: 'College List', href: '/colleges' },
+  { label: 'Colleges', href: '/colleges' },
   { label: 'Contact Us', href: '/contact' },
 ];
 
@@ -30,7 +26,7 @@ export const quickLinks = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
   { label: 'Services', href: '/services' },
-  { label: 'College List', href: '/colleges' },
+  { label: 'Colleges', href: '/colleges' },
   { label: 'Contact Us', href: '/contact' },
   { label: 'Terms & Conditions', href: '/terms' },
   { label: 'Privacy Policy', href: '/privacy' },

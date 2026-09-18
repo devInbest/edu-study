@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { IconBrandFacebook, IconBrandInstagram, IconChevronDown } from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 
+import facebookIcon from '@/assets/icons/facebook.png';
+import instagramIcon from '@/assets/icons/instagram.png';
 import Container from '@/components/common/Container/Container';
 import Logo from '@/components/common/Logo/Logo';
 import MobileDrawer from '@/components/layout/MobileDrawer/MobileDrawer';
@@ -95,7 +98,7 @@ export default function Header() {
   return (
     <header className={classes.header}>
       <Container className={classes.inner}>
-        <Logo variant="light" />
+        <Logo />
 
         <nav className={classes.desktopNav} aria-label="Main navigation">
           <ul>
@@ -122,18 +125,18 @@ export default function Header() {
             target="_blank"
             rel="noreferrer"
             aria-label="Facebook"
-            className={`${classes.social} ${classes.facebook}`}
+            className={classes.social}
           >
-            <IconBrandFacebook size={18} stroke={1.8} />
+            <Image src={facebookIcon} alt="" width={48} height={48} className={classes.socialIcon} />
           </a>
           <a
             href={socialLinks.instagram || '#'}
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
-            className={`${classes.social} ${classes.instagram}`}
+            className={classes.social}
           >
-            <IconBrandInstagram size={18} stroke={1.8} />
+            <Image src={instagramIcon} alt="" width={48} height={48} className={classes.socialIcon} />
           </a>
         </div>
 

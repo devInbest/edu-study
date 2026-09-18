@@ -29,7 +29,7 @@ export default function MobileDrawer() {
       <Drawer
         opened={opened}
         onClose={handleClose}
-        title={<Logo variant="dark" compact />}
+        title={<Logo compact />}
         padding="md"
         position="right"
         size="88%"

@@ -43,6 +43,7 @@
     border-radius: 1.25rem;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.65rem;
     box-shadow: var(--shadow-soft);
     box-sizing: border-box;
@@ -74,27 +75,22 @@
   color: $deep-blue;
 }
 
-.withIcon {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  color: var(--brand-muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  width: fit-content;
-  max-width: 100%;
-}
+// Items start at the same left edge as the heading label text
+$content-indent: calc(2rem + 0.55rem);
 
-.reachLink {
+.item,
+.itemLink {
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
   color: var(--brand-muted);
   font-size: 0.95rem;
   line-height: 1.5;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
-  transition: color 0.2s ease;
+  margin: 0;
+  padding-left: $content-indent;
+  box-sizing: border-box;
 
   svg {
     flex-shrink: 0;
@@ -102,6 +98,10 @@
     color: $deep-blue-mid;
     transition: color 0.2s ease;
   }
+}
+
+.itemLink {
+  transition: color 0.2s ease;
 
   &:hover {
     color: $deep-blue;
@@ -115,16 +115,19 @@
 .socialIcons {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.55rem;
+  width: 100%;
+  padding-left: $content-indent;
+  box-sizing: border-box;
 }
 
 .socialBtn {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #fff;
   transition: transform 0.2s ease, filter 0.2s ease;
 
   &:hover {
@@ -133,12 +136,11 @@
   }
 }
 
-.facebook {
-  background: #1877f2;
-}
-
-.instagram {
-  background: linear-gradient(45deg, #f58529, #dd2a7b 45%, #8134af 70%, #515bd4);
+.socialIcon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
 }
 
 .formCol {

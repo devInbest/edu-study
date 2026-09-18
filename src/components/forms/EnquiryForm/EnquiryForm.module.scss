@@ -91,6 +91,16 @@
   }
 }
 
+.stacked {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .heading h2 {
+    font-size: 1.2rem;
+  }
+}
+
 .full {
   grid-column: 1 / -1;
 }

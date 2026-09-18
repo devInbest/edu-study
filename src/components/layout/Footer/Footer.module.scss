@@ -119,12 +119,11 @@
 }
 
 .socialBtn {
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #fff;
   transition: transform 0.2s ease, filter 0.2s ease;
 
   &:hover {
@@ -133,16 +132,11 @@
   }
 }
 
-.facebook {
-  background: #1877f2;
-}
-
-.instagram {
-  background: linear-gradient(45deg, #f58529, #dd2a7b 45%, #8134af 70%, #515bd4);
-}
-
-.whatsapp {
-  background: #25d366;
+.socialIcon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
 }
 
 .bottom {

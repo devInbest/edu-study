@@ -6,7 +6,7 @@ import CtaBanner from '@/components/sections/CtaBanner/CtaBanner';
 import classes from './colleges.module.scss';
 
 export const metadata = {
-  title: 'College List',
+  title: 'Colleges',
   description:
     'Browse colleges and universities by stream, state, and city. Explore eligibility and admission information with Edu Study Consultancy.',
 };
