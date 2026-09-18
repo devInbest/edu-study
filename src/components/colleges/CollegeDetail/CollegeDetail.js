@@ -1,21 +1,15 @@
 'use client';
 
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-
 import {
   IconArrowLeft,
-  IconBuildingHospital,
-  IconCalendar,
-  IconCertificate,
   IconExternalLink,
   IconMapPin,
   IconPhone,
-  IconSchool,
-  IconTrophy,
-  IconWorld,
+  IconStarFilled,
 } from '@tabler/icons-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import AppButton from '@/components/common/AppButton/AppButton';
 import Container from '@/components/common/Container/Container';
@@ -26,6 +20,14 @@ import { getWhatsAppUrl } from '@/utils/helpers';
 import classes from './CollegeDetail.module.scss';
 
 const ease = [0.22, 1, 0.36, 1];
+
+function useHasMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -51,19 +53,11 @@ const SECTIONS = [
   { id: 'gallery', label: 'Gallery' },
 ];
 
-function HighlightCard({ icon: Icon, label, value, delay = 0 }) {
-  if (!value) return null;
-
+function SectionHeading({ title }) {
   return (
-    <ScrollReveal delay={delay} className={classes.highlightCard}>
-      <span className={classes.highlightIcon} aria-hidden>
-        <Icon size={20} stroke={1.6} />
-      </span>
-      <div>
-        <p className={classes.highlightLabel}>{label}</p>
-        <p className={classes.highlightValue}>{value}</p>
-      </div>
-    </ScrollReveal>
+    <header className={classes.sectionHeading}>
+      <h2>{title}</h2>
+    </header>
   );
 }
 
@@ -101,7 +95,7 @@ function SectionNav({ activeId, onSelect }) {
 
 function Gallery({ images, collegeName }) {
   const [active, setActive] = useState(0);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHasMounted();
   const reduceMotion = usePrefersReducedMotion();
   const items = images?.length
     ? images
@@ -111,10 +105,6 @@ function Gallery({ images, collegeName }) {
           alt: `${collegeName} campus`,
         },
       ];
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const frame = (
     <div className={classes.galleryFrame}>
@@ -136,10 +126,10 @@ function Gallery({ images, collegeName }) {
             <motion.div
               key={items[active].src}
               className={classes.galleryFrame}
-              initial={{ opacity: 0, scale: 1.02 }}
+              initial={{ opacity: 0, scale: 1.03 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.45, ease }}
+              transition={{ duration: 0.4, ease }}
             >
               <Image
                 src={items[active].src}
@@ -156,19 +146,20 @@ function Gallery({ images, collegeName }) {
         <p className={classes.galleryCaption}>{items[active].alt}</p>
       </div>
 
-      <div className={classes.galleryThumbs} role="list">
+      <div className={classes.galleryThumbs}>
         {items.map((item, index) => (
-          <button
+          <motion.button
             key={`${item.src}-${index}`}
             type="button"
-            role="listitem"
             className={`${classes.thumb} ${index === active ? classes.thumbActive : ''}`}
             onClick={() => setActive(index)}
+            whileHover={reduceMotion ? undefined : { y: -3 }}
+            whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             aria-label={`View gallery image ${index + 1}`}
             aria-pressed={index === active}
           >
             <Image src={item.src} alt="" fill sizes="120px" className={classes.thumbImage} />
-          </button>
+          </motion.button>
         ))}
       </div>
     </div>
@@ -176,12 +167,8 @@ function Gallery({ images, collegeName }) {
 }
 
 function HeroMotion({ children, className, delay = 0 }) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHasMounted();
   const reduceMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted || reduceMotion) {
     return <div className={className}>{children}</div>;
@@ -190,7 +177,7 @@ function HeroMotion({ children, className, delay = 0 }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay, ease }}
     >
@@ -202,6 +189,27 @@ function HeroMotion({ children, className, delay = 0 }) {
 export default function CollegeDetail({ college }) {
   const research = college.research || {};
   const [activeSection, setActiveSection] = useState('overview');
+  const reduceMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const nodes = SECTIONS.map((section) => document.getElementById(section.id)).filter(Boolean);
+    if (!nodes.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: '-35% 0px -45% 0px', threshold: [0.15, 0.35, 0.55] }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
 
   const highlights = research.highlights?.length
     ? research.highlights
@@ -215,74 +223,144 @@ export default function CollegeDetail({ college }) {
         { label: 'Teaching hospital', value: research.teachingHospital },
       ].filter((item) => item.value);
 
-  const highlightIcons = [
-    IconCalendar,
-    IconSchool,
-    IconCertificate,
-    IconTrophy,
-    IconBuildingHospital,
-    IconWorld,
-  ];
+  const establishedYear =
+    String(research.established || '').match(/\b(19|20)\d{2}\b/)?.[0] || research.established || '—';
+  const collegeType = research.type || college.stream || '—';
+  const overviewText = research.overview || college.shortDescription;
+  const galleryPreviews = (research.gallery || []).slice(0, 4);
+  const websiteUrl = research.website
+    ? research.website.startsWith('http')
+      ? research.website
+      : `https://${research.website}`
+    : null;
+  const isPopular = Number(college.rating) >= 4.3;
 
   return (
     <>
       <section className={classes.hero}>
-        <div className={classes.heroMedia}>
-          <Image
-            src={college.image}
-            alt={college.name}
-            fill
-            priority
-            sizes="100vw"
-            className={classes.heroImage}
-          />
-        </div>
-        <Container className={classes.heroInner}>
-          <HeroMotion delay={0}>
-            <p className={classes.stream}>{college.stream}</p>
-          </HeroMotion>
-          <HeroMotion delay={0.08}>
-            <h1>{college.name}</h1>
-          </HeroMotion>
-          <HeroMotion delay={0.14}>
-            <p className={classes.location}>
-              <IconMapPin size={16} />
-              {college.city}, {college.state}, {college.country}
-            </p>
-          </HeroMotion>
-          <HeroMotion className={classes.heroMeta} delay={0.2}>
-            {research.website ? (
-              <a
-                href={
-                  research.website.startsWith('http')
-                    ? research.website
-                    : `https://${research.website}`
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.metaLink}
-              >
-                <IconExternalLink size={15} />
-                Official website
-              </a>
-            ) : null}
-            {research.contact ? (
-              <span className={classes.metaItem}>
-                <IconPhone size={15} />
-                {research.contact}
+        <Container className={classes.heroGrid}>
+          <div className={classes.heroCopy}>
+            <HeroMotion delay={0}>
+              <p className={classes.stream}>{college.stream}</p>
+            </HeroMotion>
+
+            <HeroMotion delay={0.06}>
+              <h1>{college.name}</h1>
+            </HeroMotion>
+
+            <HeroMotion className={classes.badgeRow} delay={0.1}>
+              <span className={classes.ratingBadge}>
+                <IconStarFilled size={13} />
+                {Number(college.rating || 0).toFixed(1)}
               </span>
-            ) : null}
-          </HeroMotion>
-          <HeroMotion className={classes.heroActions} delay={0.26}>
-            <AppButton href="#enquire">Enquire about this college</AppButton>
-            <AppButton
-              href={getWhatsAppUrl(`Hi, I want counselling for ${college.name}.`)}
-              external
-              variant="outline"
-              className={classes.outline}
+              {college.reviewCount ? (
+                <span className={classes.reviewLink}>
+                  ({college.reviewCount.toLocaleString('en-IN')} Reviews)
+                </span>
+              ) : null}
+              {isPopular ? (
+                <span className={classes.popularBadge}>
+                  <IconStarFilled size={12} />
+                  Popular
+                </span>
+              ) : null}
+            </HeroMotion>
+
+            <HeroMotion delay={0.14}>
+              <p className={classes.heroLead}>{overviewText}</p>
+            </HeroMotion>
+
+            <HeroMotion className={classes.heroMetaRow} delay={0.18}>
+              <p className={classes.location}>
+                <IconMapPin size={16} stroke={1.8} />
+                {college.city} ({college.state})
+              </p>
+              {galleryPreviews.length ? (
+                <a href="#gallery" className={classes.galleryLink}>
+                  <span className={classes.galleryStack}>
+                    {galleryPreviews.map((item, index) => (
+                      <span
+                        key={`${item.src}-${index}`}
+                        className={classes.galleryDot}
+                        style={{ zIndex: galleryPreviews.length - index }}
+                      >
+                        <Image src={item.src} alt="" fill sizes="36px" />
+                      </span>
+                    ))}
+                  </span>
+                  Gallery
+                </a>
+              ) : null}
+            </HeroMotion>
+
+            <HeroMotion className={classes.heroActions} delay={0.22}>
+              <AppButton
+                href={getWhatsAppUrl(`Hi, I want counselling for ${college.name}.`)}
+                external
+                variant="outline"
+                className={classes.secondaryCta}
+              >
+                Download Brochure
+              </AppButton>
+              <AppButton href="#enquire" className={classes.primaryCta}>
+                Apply Now
+              </AppButton>
+            </HeroMotion>
+
+            {(websiteUrl || research.contact) && (
+              <HeroMotion className={classes.heroLinks} delay={0.26}>
+                {websiteUrl ? (
+                  <a
+                    href={websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={classes.metaLink}
+                  >
+                    <IconExternalLink size={15} />
+                    Official website
+                  </a>
+                ) : null}
+                {research.contact ? (
+                  <span className={classes.metaItem}>
+                    <IconPhone size={15} />
+                    {research.contact}
+                  </span>
+                ) : null}
+              </HeroMotion>
+            )}
+          </div>
+
+          <HeroMotion className={classes.heroVisual} delay={0.12}>
+            <div className={classes.mediaFrame}>
+              <Image
+                src={college.image}
+                alt={college.name}
+                fill
+                priority
+                sizes="(max-width: 900px) 100vw, 48vw"
+                className={classes.mediaImage}
+              />
+            </div>
+
+            <motion.div
+              className={`${classes.floatCard} ${classes.floatCardTop}`}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.5, ease }}
             >
-              WhatsApp Us
-            </AppButton>
+              <span>Year of Establishment</span>
+              <strong>{establishedYear}</strong>
+            </motion.div>
+
+            <motion.div
+              className={`${classes.floatCard} ${classes.floatCardBottom}`}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.5, ease }}
+            >
+              <span>Type</span>
+              <strong>{collegeType}</strong>
+            </motion.div>
           </HeroMotion>
         </Container>
       </section>
@@ -297,49 +375,48 @@ export default function CollegeDetail({ college }) {
         <Container className={classes.layout}>
           <div className={classes.content}>
             <ScrollReveal as="article" id="overview" className={classes.block}>
-              <h2>Overview</h2>
+              <SectionHeading title="Overview" />
               <p className={classes.lead}>{research.overview || college.shortDescription}</p>
               {highlights.length ? (
-                <div className={classes.highlightGrid}>
+                <dl className={classes.statStrip}>
                   {highlights.map((item, index) => (
-                    <HighlightCard
-                      key={`${item.label}-${index}`}
-                      icon={highlightIcons[index % highlightIcons.length]}
-                      label={item.label}
-                      value={item.value}
-                      delay={0.04 * index}
-                    />
+                    <div key={`${item.label}-${index}`}>
+                      <dt>{item.label}</dt>
+                      <dd>{item.value}</dd>
+                    </div>
                   ))}
-                </div>
+                </dl>
               ) : null}
             </ScrollReveal>
 
-            <ScrollReveal as="article" id="courses" className={classes.block} delay={0.05}>
-              <h2>Courses, eligibility & fees</h2>
+            <ScrollReveal as="article" id="courses" className={`${classes.block} ${classes.blockContrast}`} delay={0.04}>
+              <SectionHeading title="Courses & Fees" />
               {research.courses?.length ? (
-                <div className={classes.tableWrap}>
-                  <table className={classes.table}>
-                    <thead>
-                      <tr>
-                        <th>Course</th>
-                        <th>Duration</th>
-                        <th>Seats</th>
-                        <th>Eligibility</th>
-                        <th>Fees (approx.)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {research.courses.map((course, index) => (
-                        <tr key={`${course.name}-${index}`}>
-                          <td data-label="Course">{course.name}</td>
-                          <td data-label="Duration">{course.duration || '—'}</td>
-                          <td data-label="Seats">{course.seats || '—'}</td>
-                          <td data-label="Eligibility">{course.eligibility || college.eligibility}</td>
-                          <td data-label="Fees">{course.fees || '—'}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className={classes.courseList}>
+                  {research.courses.map((course, index) => (
+                    <motion.div
+                      key={`${course.name}-${index}`}
+                      className={classes.courseRow}
+                      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.35 }}
+                      transition={{ delay: 0.04 * index, duration: 0.4, ease }}
+                    >
+                      <div className={classes.courseHead}>
+                        <h3>{course.name}</h3>
+                        {course.duration ? <span>{course.duration}</span> : null}
+                      </div>
+                      <p>
+                        <em>Seats</em> {course.seats || '—'}
+                      </p>
+                      <p>
+                        <em>Eligibility</em> {course.eligibility || college.eligibility}
+                      </p>
+                      <p className={classes.courseFees}>
+                        <em>Fees</em> {course.fees || '—'}
+                      </p>
+                    </motion.div>
+                  ))}
                 </div>
               ) : (
                 <>
@@ -348,7 +425,7 @@ export default function CollegeDetail({ college }) {
                       <li key={degree}>{degree}</li>
                     ))}
                   </ul>
-                  <p>{college.eligibility}</p>
+                  <p className={classes.muted}>{college.eligibility}</p>
                 </>
               )}
               {research.courseNotes?.length ? (
@@ -360,15 +437,22 @@ export default function CollegeDetail({ college }) {
               ) : null}
             </ScrollReveal>
 
-            <ScrollReveal as="article" id="cutoffs" className={classes.block} delay={0.05}>
-              <h2>Cutoffs</h2>
+            <ScrollReveal as="article" id="cutoffs" className={classes.block} delay={0.04}>
+              <SectionHeading title="Cutoffs" />
               {research.cutoffs?.length ? (
                 <div className={classes.cutoffList}>
                   {research.cutoffs.map((item, index) => (
-                    <div key={`${item.label}-${index}`} className={classes.cutoffRow}>
+                    <motion.div
+                      key={`${item.label}-${index}`}
+                      className={classes.cutoffRow}
+                      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ delay: 0.03 * index, duration: 0.35, ease }}
+                    >
                       <span>{item.label}</span>
                       <strong>{item.value}</strong>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               ) : (
@@ -378,28 +462,42 @@ export default function CollegeDetail({ college }) {
               )}
             </ScrollReveal>
 
-            <ScrollReveal as="article" id="admission" className={classes.block} delay={0.05}>
-              <h2>Admission process</h2>
+            <ScrollReveal as="article" id="admission" className={`${classes.block} ${classes.blockContrast}`} delay={0.04}>
+              <SectionHeading title="Admission" />
               {research.admissionSteps?.length ? (
                 <ol className={classes.steps}>
                   {research.admissionSteps.map((step, index) => (
-                    <li key={`${index}-${step.slice(0, 24)}`}>
-                      <span className={classes.stepIndex}>{String(index + 1).padStart(2, '0')}</span>
+                    <motion.li
+                      key={`${index}-${step.slice(0, 24)}`}
+                      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.35 }}
+                      transition={{ delay: 0.05 * index, duration: 0.4, ease }}
+                    >
+                      <span aria-hidden>{String(index + 1).padStart(2, '0')}</span>
                       <p>{step}</p>
-                    </li>
+                    </motion.li>
                   ))}
                 </ol>
               ) : (
-                <p>{college.admissionInfo}</p>
+                <p className={classes.muted}>{college.admissionInfo}</p>
               )}
             </ScrollReveal>
 
-            <ScrollReveal as="article" id="placements" className={classes.block} delay={0.05}>
-              <h2>Placements & internship</h2>
+            <ScrollReveal as="article" id="placements" className={classes.block} delay={0.04}>
+              <SectionHeading title="Placements" />
               {research.placements?.length ? (
-                <ul className={classes.bulletList}>
+                <ul className={classes.plainList}>
                   {research.placements.map((item, index) => (
-                    <li key={`${index}-${item.slice(0, 24)}`}>{item}</li>
+                    <motion.li
+                      key={`${index}-${item.slice(0, 24)}`}
+                      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ delay: 0.04 * index, duration: 0.35, ease }}
+                    >
+                      {item}
+                    </motion.li>
                   ))}
                 </ul>
               ) : (
@@ -410,12 +508,20 @@ export default function CollegeDetail({ college }) {
               )}
             </ScrollReveal>
 
-            <ScrollReveal as="article" id="campus" className={classes.block} delay={0.05}>
-              <h2>Campus life & hostel</h2>
+            <ScrollReveal as="article" id="campus" className={`${classes.block} ${classes.blockContrast}`} delay={0.04}>
+              <SectionHeading title="Campus Life" />
               {research.campusLife?.length ? (
-                <ul className={classes.bulletList}>
+                <ul className={classes.plainList}>
                   {research.campusLife.map((item, index) => (
-                    <li key={`${index}-${item.slice(0, 24)}`}>{item}</li>
+                    <motion.li
+                      key={`${index}-${item.slice(0, 24)}`}
+                      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ delay: 0.04 * index, duration: 0.35, ease }}
+                    >
+                      {item}
+                    </motion.li>
                   ))}
                 </ul>
               ) : (
@@ -423,12 +529,8 @@ export default function CollegeDetail({ college }) {
               )}
             </ScrollReveal>
 
-            <ScrollReveal as="article" id="gallery" className={classes.block} delay={0.05}>
-              <h2>Campus gallery</h2>
-              <p className={classes.muted}>
-                Placeholder campus visuals for now — replace these with official college photos when
-                ready.
-              </p>
+            <ScrollReveal as="article" id="gallery" className={classes.block} delay={0.04}>
+              <SectionHeading title="Gallery" />
               <Gallery images={research.gallery} collegeName={college.name} />
             </ScrollReveal>
 
