@@ -40,6 +40,49 @@ export const aboutContent = {
     'To be India’s most trusted education consultancy for transparent counselling and admission support.',
   philosophy:
     'We believe counselling should be honest, personalised, and free from pressure — students deserve clarity before commitment.',
+  cards: [
+    {
+      id: 'mission',
+      title: 'Mission',
+      eyebrow: 'What drives us',
+      points: [
+        'Match courses to goals, aptitude, and long-term career plans',
+        'Shortlist colleges by eligibility, budget, and preferred locations',
+        'Explain entrance pathways, cutoffs, and counselling timelines clearly',
+        'Support families with practical next steps — not generic lists',
+      ],
+      tone: 'mission',
+    },
+    {
+      id: 'vision',
+      title: 'Vision',
+      eyebrow: 'Where we are headed',
+      points: [
+        'Build trust through clear advice and honest college comparisons',
+        'Stay transparent on fees, seats, and realistic admission chances',
+        'Guide students nationwide with consistent, quality counselling',
+        'Remain a reliable partner from first enquiry to campus settling-in',
+      ],
+      tone: 'vision',
+    },
+    {
+      id: 'philosophy',
+      title: 'Counselling philosophy',
+      eyebrow: 'How we counsel',
+      points: [
+        'Honest, personalised guidance free from sales pressure — clarity before commitment',
+        'No push toward a particular college, course, or paid package',
+        'Plans shaped around academics, interests, budget, and preferred locations',
+        'Parents and students get the same clear facts on eligibility and timelines',
+        'Entrance exams, counselling rounds, and document checklists explained step by step',
+        'Realistic options only — we say when a seat or cutoff may not be a fit',
+        'Free first conversation so you can decide with confidence',
+        'Support continues after counselling for applications and reporting if you need it',
+      ],
+      tone: 'philosophy',
+      wide: true,
+    },
+  ],
 };
 
 export const contactPlaceholders = {
@@ -65,9 +108,10 @@ export const qualificationOptions = [
 ];
 
 export const coursePreferenceOptions = [
-  'MBBS / MD / MS',
+  'MBBS',
+  'MD / MS',
   'MBA / Management',
-  'Engineering / B.Tech',
+  'B.Tech',
   'Pharmacy',
   'Nursing',
   'Other',

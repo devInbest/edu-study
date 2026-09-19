@@ -13,21 +13,50 @@ function slugify(name) {
     .replace(/(^-|-$)/g, '');
 }
 
-export const STREAM_ORDER = ['MBBS/MD/MS', 'MBA', 'Engineering'];
+export const STREAM_ORDER = ['MBBS', 'MD/MS', 'MBA', 'B.Tech'];
+
+/** Filter / display streams. `catalogueStream` maps to the value stored on each college. */
 export const STREAM_META = {
-  'MBBS/MD/MS': {
-    title: 'MBBS / MD / MS',
-    description: 'Medical colleges across Karnataka, Maharashtra, Uttar Pradesh, West Bengal, and Chhattisgarh.',
+  MBBS: {
+    title: 'MBBS',
+    description:
+      'Undergraduate medical colleges across Karnataka, Maharashtra, Uttar Pradesh, West Bengal, and Chhattisgarh.',
+    catalogueStream: 'MBBS/MD/MS',
+    degrees: ['MBBS'],
+  },
+  'MD/MS': {
+    title: 'MD/MS',
+    description:
+      'Postgraduate medical colleges offering MD and MS programmes across India.',
+    catalogueStream: 'MBBS/MD/MS',
+    degrees: ['MD', 'MS'],
   },
   MBA: {
     title: 'MBA',
     description: 'Premier management institutes for postgraduate business programmes.',
+    catalogueStream: 'MBA',
   },
-  Engineering: {
-    title: 'Engineering',
+  'B.Tech': {
+    title: 'B.Tech',
     description: 'Leading engineering and technology institutes for B.Tech / B.E. and postgraduate study.',
+    catalogueStream: 'B.Tech',
   },
 };
+
+function collegeMatchesStream(college, stream) {
+  if (!stream) return true;
+
+  const filterMeta = STREAM_META[stream];
+  if (filterMeta) {
+    if (college.stream !== filterMeta.catalogueStream) return false;
+    if (!filterMeta.degrees?.length) return true;
+    return filterMeta.degrees.some((degree) =>
+      college.degrees.some((d) => d.toLowerCase() === String(degree).toLowerCase())
+    );
+  }
+
+  return college.stream === stream;
+}
 
 const rawColleges = [
   // ——— MBBS / MD / MS ———
@@ -382,12 +411,12 @@ const rawColleges = [
     admissionInfo: 'Application review and personal interaction rounds.',
   },
 
-  // ——— Engineering ———
+  // ——— B.Tech ———
   {
     name: 'Indian Institute of Science , Bangalore',
     state: 'Karnataka',
     city: 'Bengaluru',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80',
     rating: 4.8,
@@ -399,7 +428,7 @@ const rawColleges = [
     name: 'National Institute of Technology Karnataka ,Surathkal',
     state: 'Karnataka',
     city: 'Surathkal',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80',
     rating: 4.6,
@@ -411,7 +440,7 @@ const rawColleges = [
     name: 'RV College of Engineering',
     state: 'Karnataka',
     city: 'Bengaluru',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.E.', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
     rating: 4.3,
@@ -423,7 +452,7 @@ const rawColleges = [
     name: 'Institute of Chemical Technology,Mumbai',
     state: 'Maharashtra',
     city: 'Mumbai',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80',
     rating: 4.6,
@@ -435,7 +464,7 @@ const rawColleges = [
     name: 'Veermata Jijabai Technological Institute,Mumbai',
     state: 'Maharashtra',
     city: 'Mumbai',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1200&q=80',
     rating: 4.5,
@@ -447,7 +476,7 @@ const rawColleges = [
     name: 'Visvesvaraya National Institute of technology,Nagpur',
     state: 'Maharashtra',
     city: 'Nagpur',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80',
     rating: 4.6,
@@ -459,7 +488,7 @@ const rawColleges = [
     name: 'Indian Institute of Technology (BHU),Varanasi',
     state: 'Uttar Pradesh',
     city: 'Varanasi',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1462536943532-57a629f6cc60?auto=format&fit=crop&w=1200&q=80',
     rating: 4.7,
@@ -471,7 +500,7 @@ const rawColleges = [
     name: 'Amity University,Noida',
     state: 'Uttar Pradesh',
     city: 'Noida',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
     rating: 4,
@@ -483,7 +512,7 @@ const rawColleges = [
     name: 'National Institute of Technology (NIT) Raipur',
     state: 'Chhattisgarh',
     city: 'Raipur',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=80',
     rating: 4.4,
@@ -495,7 +524,7 @@ const rawColleges = [
     name: 'Bhilai Institute of Technology(BIT) Durg',
     state: 'Chhattisgarh',
     city: 'Durg',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.E.', 'M.Tech'],
     image: 'https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=1200&q=80',
     rating: 4.2,
@@ -507,7 +536,7 @@ const rawColleges = [
     name: 'National Institute of Technology(NIT) Durgapur',
     state: 'West Bengal',
     city: 'Durgapur',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/VJTI_Quadrangle.jpg',
     rating: 4.5,
@@ -519,7 +548,7 @@ const rawColleges = [
     name: 'Heritage Institute of Technology',
     state: 'West Bengal',
     city: 'Kolkata',
-    stream: 'Engineering',
+    stream: 'B.Tech',
     degrees: ['B.Tech', 'M.Tech'],
     image: 'https://upload.wikimedia.org/wikipedia/commons/0/04/KPC%2C_Kolkata_Front_gate.jpg',
     rating: 4.3,
@@ -558,7 +587,12 @@ export function getCollegeBySlug(slug) {
 export function getCollegeFiltersMeta() {
   const states = [...new Set(colleges.map((c) => c.state))].sort();
   const cities = [...new Set(colleges.map((c) => c.city))].sort();
-  const streams = STREAM_ORDER.filter((stream) => colleges.some((c) => c.stream === stream));
+  const streams = STREAM_ORDER.filter((stream) =>
+    colleges.some((college) => collegeMatchesStream(college, stream))
+  ).map((stream) => ({
+    value: stream,
+    label: STREAM_META[stream]?.title || stream,
+  }));
   return { states, cities, streams };
 }
 
@@ -577,7 +611,7 @@ export function filterColleges({ q = '', state = '', city = '', stream = '', deg
 
     const matchesState = !state || college.state === state;
     const matchesCity = !city || college.city === city;
-    const matchesStream = !stream || college.stream === stream;
+    const matchesStream = collegeMatchesStream(college, stream);
     const matchesDegrees =
       !degreeList.length ||
       degreeList.some((degree) =>
@@ -591,7 +625,7 @@ export function filterColleges({ q = '', state = '', city = '', stream = '', deg
 /** Group filtered results into stream → state sections (client list order). */
 export function groupCollegesByStreamAndState(list) {
   return STREAM_ORDER.map((stream) => {
-    const inStream = list.filter((c) => c.stream === stream);
+    const inStream = list.filter((c) => collegeMatchesStream(c, stream));
     if (!inStream.length) return null;
 
     // Preserve first-seen state order from the client catalogue

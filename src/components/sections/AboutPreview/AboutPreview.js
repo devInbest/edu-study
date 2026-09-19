@@ -1,10 +1,14 @@
 'use client';
 
+import Image from 'next/image';
+
+import { IconEye, IconTarget } from '@tabler/icons-react';
+
+import aboutBanner from '@/assets/images/banners/about.jpg';
 import AppButton from '@/components/common/AppButton/AppButton';
 import Container from '@/components/common/Container/Container';
 import ScrollReveal from '@/components/common/ScrollReveal/ScrollReveal';
 import { aboutContent } from '@/constants/site';
-import { IconEye, IconTarget } from '@tabler/icons-react';
 
 import classes from './AboutPreview.module.scss';
 
@@ -13,10 +17,12 @@ export default function AboutPreview() {
     <section className={classes.section}>
       <Container className={classes.grid}>
         <ScrollReveal className={classes.visual} direction="left">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1000&q=80"
+          <Image
+            src={aboutBanner}
             alt="Graduation cap, books and globe"
+            fill
+            sizes="(max-width: 1024px) 100vw, 32vw"
+            className={classes.image}
           />
           <div className={classes.overlay}>
             <p>Better Education</p>

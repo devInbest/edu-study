@@ -26,16 +26,6 @@
   margin-bottom: 0.45rem;
 }
 
-.allLink {
-  font-weight: 800;
-  color: $deep-blue-mid;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: $gold;
-  }
-}
-
 .grid {
   display: grid;
   gap: 1rem;

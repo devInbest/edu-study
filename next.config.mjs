@@ -13,7 +13,20 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'upload.wikimedia.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'flagcdn.com',
+      },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/courses/mbbs-md-ms',
+        destination: '/courses/mbbs',
+        permanent: true,
+      },
+    ];
   },
 };
 

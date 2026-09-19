@@ -1,5 +1,6 @@
-import PageHero from '@/components/common/PageHero/PageHero';
-import CtaBanner from '@/components/sections/CtaBanner/CtaBanner';
+import servicesBanner from '@/assets/images/banners/services.jpg';
+import PageBanner from '@/components/common/PageBanner/PageBanner';
+import CtaAdBanner from '@/components/sections/CtaAdBanner/CtaAdBanner';
 import ServicesFaq from '@/components/sections/ServicesFaq/ServicesFaq';
 
 import ServicesList from './ServicesList';
@@ -13,17 +14,20 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Services"
-        title="Everything you need for a confident admission journey"
-        description="Focused support designed to take students from first questions to campus confidence."
+      <PageBanner
+        image={servicesBanner}
+        imageAlt="Indian career counsellor guiding a student through admission options"
+        eyebrow="What We Offer"
+        title="Our Services"
+        icon="services"
+        priority
       />
 
       <ServicesList />
 
-      <ServicesFaq />
+      <CtaAdBanner />
 
-      <CtaBanner />
+      <ServicesFaq />
     </>
   );
 }

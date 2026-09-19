@@ -30,12 +30,14 @@ export default function EnquiryForm({
   headingId,
   title = 'Start Your Admission Enquiry',
   eyebrow = 'Free counselling',
+  accentTitle = false,
 }) {
   const [values, setValues] = useState({ ...initialValues, college: defaultCollege });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
   const [serverMessage, setServerMessage] = useState('');
-  const isDark = variant === 'dark';
+  const isDark = variant === 'dark' || variant === 'glass';
+  const isGlass = variant === 'glass';
 
   function updateField(field, value) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -90,14 +92,15 @@ export default function EnquiryForm({
 
   const inputStyles = isDark
     ? {
-        label: { color: 'rgba(255,255,255,0.88)', fontWeight: 600, fontSize: '0.78rem' },
+        label: { color: 'rgba(255,255,255,0.9)', fontWeight: 600, fontSize: '0.78rem' },
         input: {
-          background: 'rgba(255,255,255,0.08)',
-          border: '1px solid rgba(255,255,255,0.18)',
+          background: isGlass ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.08)',
+          border: isGlass ? '1px solid rgba(255,255,255,0.28)' : '1px solid rgba(255,255,255,0.18)',
           color: '#fff',
           borderRadius: '0.65rem',
+          backdropFilter: isGlass ? 'blur(8px)' : undefined,
         },
-        section: { color: 'rgba(255,255,255,0.75)' },
+        section: { color: 'rgba(255,255,255,0.8)' },
       }
     : {
         section: { color: 'var(--brand-muted)' },
@@ -105,13 +108,17 @@ export default function EnquiryForm({
 
   return (
     <form
-      className={`${classes.form} ${compact ? classes.compact : ''} ${stacked ? classes.stacked : ''} ${isDark ? classes.dark : ''} ${className}`.trim()}
+      className={`${classes.form} ${compact ? classes.compact : ''} ${stacked ? classes.stacked : ''} ${variant === 'dark' ? classes.dark : ''} ${isGlass ? classes.glass : ''} ${className}`.trim()}
       onSubmit={handleSubmit}
       noValidate
     >
-      <div className={classes.heading}>
+      <div className={`${classes.heading} ${accentTitle ? classes.accentTitle : ''}`.trim()}>
         {eyebrow ? <p className={classes.eyebrow}>{eyebrow}</p> : null}
-        <h2 id={headingId}>{title}</h2>
+        {title ? (
+          <h2 id={headingId} className={accentTitle ? classes.accentHeadline : undefined}>
+            {title}
+          </h2>
+        ) : null}
       </div>
 
       <div className={classes.grid}>
@@ -209,6 +216,7 @@ export default function EnquiryForm({
         loading={status === 'loading'}
         leftSection={status === 'success' ? <IconCheck size={16} /> : <IconSend size={16} />}
         className={classes.submit}
+        radius="sm"
         fullWidth
       >
         {status === 'success' ? 'Enquiry sent' : 'Submit Enquiry'}

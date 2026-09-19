@@ -1,4 +1,5 @@
 import AboutPreview from '@/components/sections/AboutPreview/AboutPreview';
+import CtaAdBanner from '@/components/sections/CtaAdBanner/CtaAdBanner';
 import CtaBanner from '@/components/sections/CtaBanner/CtaBanner';
 import FeaturedColleges from '@/components/sections/FeaturedColleges/FeaturedColleges';
 import HeroSection from '@/components/sections/HeroSection/HeroSection';
@@ -14,6 +15,7 @@ export default function HomePage() {
       <AboutPreview />
       <ServicesPreview />
       <WhyChooseSection />
+      <CtaAdBanner />
       <ProcessSection />
       <FeaturedColleges />
       <TestimonialsSection />

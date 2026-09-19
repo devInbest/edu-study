@@ -2,67 +2,249 @@
 @use '@/styles/variables.scss' as *;
 
 .section {
-  padding-block: var(--section-space);
-  background: linear-gradient(180deg, rgba($gold, 0.08), transparent 40%);
+  padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
+  background: #fff;
+  overflow: visible;
 }
 
 .header {
-  margin-bottom: 2rem;
-  display: grid;
-  gap: 0.5rem;
+  margin-bottom: clamp(0.85rem, 2vw, 1.35rem);
+  text-align: center;
 }
 
-.eyebrow {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $gold;
+.orbit {
+  --radius: clamp(11rem, 30vw, 17.5rem);
+  position: relative;
+  width: min(100%, 48rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  padding-top: 0;
+  overflow: visible;
+
+  @media (max-width: 767px) {
+    --radius: 0;
+    width: 100%;
+    aspect-ratio: auto;
+    padding-top: 0;
+  }
+
+  // Mid tablets: pull cards in so they stay inside the viewport
+  @media (min-width: 768px) and (max-width: 1023px) {
+    --radius: clamp(9.5rem, 26vw, 13.5rem);
+    width: min(100% - 0.5rem, 40rem);
+  }
+}
+
+.rotor {
+  @include tablet {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+}
+
+.rotorSpin {
+  @include tablet {
+    animation: orbit-spin 42s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
 }
 
 .steps {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 1rem;
 
-  @include tablet {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  li {
-    padding: 1.25rem 1rem;
-    background: #fff;
-    border-radius: 1rem;
-    border-top: 3px solid $gold;
-    box-shadow: var(--shadow-soft);
+  @media (max-width: 767px) {
     display: grid;
-    gap: 0.45rem;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    height: 100%;
+    gap: 0;
+    position: relative;
+    padding-left: 0.25rem;
 
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lift);
+    &::before {
+      content: '';
+      position: absolute;
+      left: 1.35rem;
+      top: 1.5rem;
+      bottom: 1.5rem;
+      width: 2px;
+      background: repeating-linear-gradient(180deg, $gold 0 6px, transparent 6px 12px);
+      border-radius: 999px;
+      opacity: 0.7;
     }
   }
 
+  @include tablet {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.slot {
+  @media (max-width: 767px) {
+    position: relative;
+    z-index: 1;
+    padding-block: 0.55rem;
+  }
+
+  @include tablet {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: clamp(8.25rem, 15vw, 10.25rem);
+    transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg - 90deg))
+      translateY(calc(var(--radius) * -1));
+    z-index: 1;
+
+    &:hover {
+      z-index: 6;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: clamp(7.5rem, 18vw, 9rem);
+  }
+}
+
+.keeper {
+  width: 100%;
+}
+
+.keeperSpin {
+  @include tablet {
+    animation: orbit-counter 42s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  min-height: 10.25rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.7rem;
+  padding: 0.9rem 0.9rem 1rem;
+  background: #fff;
+  border: 1px solid rgba($deep-blue, 0.1);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 12px 28px -14px rgba($deep-blue, 0.4),
+    0 0 0 1px rgba(#fff, 0.6) inset;
+  overflow: hidden;
+  cursor: pointer;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.25s ease, border-color 0.2s ease;
+
+  @media (max-width: 767px) {
+    min-height: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.12);
+      border-color: rgba($gold, 0.7);
+      outline: none;
+    }
+  }
+
+  @media (hover: none) {
+    &:focus-visible {
+      border-color: rgba($gold, 0.7);
+      outline: none;
+    }
+  }
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 2rem;
+}
+
+.cardBody {
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+
   h3 {
-    font-size: 1.05rem;
+    margin: 0;
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
     color: $deep-blue;
     font-family: var(--font-display), sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
 
   p {
-    font-size: 0.88rem;
+    margin: 0;
+    font-size: clamp(0.72rem, 1.2vw, 0.78rem);
+    line-height: 1.45;
     color: var(--brand-muted);
   }
 }
 
+.badge {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.35rem;
+  color: $deep-blue;
+  background: linear-gradient(145deg, $gold-light, $gold);
+}
+
 .index {
-  font-size: 0.75rem;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 1.5rem;
+  padding: 0 0.45rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: $gold;
+  line-height: 1;
+  color: $deep-blue;
+  background: rgba($deep-blue, 0.07);
+  border-radius: 999px;
+}
+
+.tone3 {
+  border-radius: 1.5rem 1.5rem 1rem 1rem;
+}
+
+.tone5 {
+  border-radius: 1.45rem;
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter {
+  from {
+    transform: rotate(calc(-1 * var(--base-angle)));
+  }
+
+  to {
+    transform: rotate(calc(-1 * var(--base-angle) - 360deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotorSpin,
+  .keeperSpin {
+    animation: none !important;
+  }
 }

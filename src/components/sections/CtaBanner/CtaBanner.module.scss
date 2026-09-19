@@ -12,11 +12,12 @@
   justify-content: space-between;
   gap: 1.25rem;
   align-items: center;
-  padding: 1.9rem 1.7rem;
-  border-radius: 1.25rem;
+  padding: calc(clamp(1.25rem, 3vw, 1.9rem) + 16px) clamp(1rem, 3vw, 1.7rem);
+  border-radius: clamp(0.9rem, 2vw, 1.25rem);
   color: #fff;
   position: relative;
   overflow: hidden;
+  min-width: 0;
   background:
     linear-gradient(115deg, rgba($deep-blue, 0.94) 0%, rgba($deep-blue-mid, 0.88) 55%, rgba(#001d40, 0.9) 100%),
     url('https://images.unsplash.com/photo-1523580846011-d95c304781bf?auto=format&fit=crop&w=1600&q=80')
@@ -36,10 +37,11 @@
 
   h2 {
     font-family: var(--font-display), sans-serif;
-    font-size: clamp(1.55rem, 3vw, 2.1rem);
+    font-size: clamp(1.25rem, 3.5vw, 2.1rem);
     margin-bottom: 0.35rem;
     position: relative;
     z-index: 1;
+    overflow-wrap: break-word;
   }
 
   p {
@@ -47,6 +49,7 @@
     max-width: 42ch;
     position: relative;
     z-index: 1;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
   }
 }
 
@@ -56,6 +59,22 @@
   gap: 0.65rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+
+  @include tablet {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    > * {
+      width: 100%;
+    }
+  }
 }
 
 .primary {
@@ -63,4 +82,17 @@
   color: $deep-blue !important;
   border: none !important;
   font-weight: 800;
+}
+
+.waBtn {
+  background: #25d366 !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 700;
+  transition: transform 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
 }

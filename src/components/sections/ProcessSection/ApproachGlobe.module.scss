@@ -1,0 +1,23 @@
+.wrap {
+  position: absolute;
+  inset: 4%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: scale(1.12);
+  transform-origin: center center;
+
+  :global(canvas) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #0a3d7a 0%, #002d62 55%, #001428 100%);
+  opacity: 0.85;
+}

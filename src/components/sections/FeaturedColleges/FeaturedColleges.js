@@ -12,7 +12,7 @@ export default function FeaturedColleges() {
   const featured = [
     ...colleges.filter((c) => c.stream === 'MBBS/MD/MS').slice(0, 2),
     ...colleges.filter((c) => c.stream === 'MBA').slice(0, 2),
-    ...colleges.filter((c) => c.stream === 'Engineering').slice(0, 2),
+    ...colleges.filter((c) => c.stream === 'B.Tech').slice(0, 2),
   ];
 
   return (
@@ -22,10 +22,6 @@ export default function FeaturedColleges() {
           <div>
             <p className={classes.eyebrow}>College directory</p>
             <h2 className="sectionTitle">Explore Colleges Across India</h2>
-            <p className="sectionLead">
-              Browse institutions by stream, state, and city — then enquire for a personalised
-              shortlist.
-            </p>
           </div>
           <AppButton href="/colleges" variant="outline" color="navy">
             View full list

@@ -3,58 +3,131 @@
 
 .section {
   padding-block: var(--section-space);
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(253, 184, 19, 0.12), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 90% 10%, rgba(0, 45, 98, 0.08), transparent 50%),
+    $cream-white;
+}
+
+.header {
+  margin-bottom: clamp(0.85rem, 2vw, 1.75rem);
+  text-align: center;
 }
 
 .grid {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 
   @include tablet {
     grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
   }
+}
 
-  article {
-    padding: 1.5rem 1.35rem;
-    background: #fff;
-    border-top: 3px solid $gold;
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+  padding: 1.75rem 1.5rem 1.85rem;
+  border-radius: 1.15rem;
+  color: #fff;
+  box-shadow:
+    0 10px 28px rgba(0, 45, 98, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.04);
 
-    h2 {
-      font-size: 1.35rem;
-      color: $deep-blue;
-      margin-bottom: 0.55rem;
-    }
-
-    p {
-      color: var(--brand-muted);
-    }
+  @include tablet {
+    padding: 2rem 1.85rem 2.1rem;
   }
 }
 
 .wide {
   @include tablet {
     grid-column: 1 / -1;
+    padding: 2.15rem 2.1rem 2.25rem;
+  }
+
+  .points {
+    @include tablet {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1.75rem;
+    }
   }
 }
 
-.cta {
-  padding-bottom: var(--section-space);
+.mission {
+  background: linear-gradient(145deg, #002d62 0%, #0a4a8c 55%, #0d5a9e 100%);
 }
 
-.ctaInner {
+.vision {
+  background: linear-gradient(145deg, #0a3d7a 0%, #135a9e 50%, #1a6bb8 100%);
+}
+
+.philosophy {
+  background: linear-gradient(145deg, #1a2f4a 0%, #002d62 45%, #0a3d7a 100%);
+}
+
+.cardTop {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1rem;
   align-items: center;
-  padding: 1.5rem;
-  background: rgba($deep-blue, 0.04);
+  gap: 0.85rem;
+}
 
-  h2 {
-    color: $deep-blue;
-    margin-bottom: 0.3rem;
-  }
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.75rem;
+  color: $deep-blue;
+  background: rgba(255, 255, 255, 0.92);
+  flex-shrink: 0;
+}
 
-  p {
-    color: var(--brand-muted);
+.cardEyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+  color: #fff;
+  line-height: 1.2;
+}
+
+.points {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.92rem;
+    line-height: 1.45;
   }
+}
+
+.bullet {
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: 0.45rem;
+  border-radius: 50%;
+  background: $gold;
+  box-shadow: 0 0 0 3px rgba(253, 184, 19, 0.25);
+}
+
+.ctaSection {
+  background: transparent;
 }

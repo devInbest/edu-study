@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { IconCheck } from '@tabler/icons-react';
 
 import AppButton from '@/components/common/AppButton/AppButton';
@@ -41,7 +42,13 @@ export default function WhyChooseSection() {
                 delay={0.06 * index}
               >
                 <span className={classes.flag} aria-hidden="true">
-                  {item.flag}
+                  <Image
+                    src={`https://flagcdn.com/w80/${item.flagCode}.png`}
+                    alt=""
+                    width={40}
+                    height={30}
+                    className={classes.flagImage}
+                  />
                 </span>
                 <div>
                   <h3>{item.name}</h3>

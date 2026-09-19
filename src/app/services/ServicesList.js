@@ -34,8 +34,9 @@ function ServiceBlock({ service, index, onEnquire }) {
   const Icon = icons[service.icon] || IconSchool;
   const imageFirst = index % 2 === 0;
   const tinted = index % 2 === 1;
-  const mediaX = imageFirst ? -56 : 56;
-  const copyX = imageFirst ? 40 : -40;
+  // Keep slide distances modest so mid-animation frames never spill the viewport
+  const mediaX = imageFirst ? -28 : 28;
+  const copyX = imageFirst ? 20 : -20;
 
   const fadeIn = { duration: 0.55, ease };
   const fadeOut = { duration: 0.4, ease };
@@ -70,8 +71,8 @@ function ServiceBlock({ service, index, onEnquire }) {
   const mediaVariants = {
     hidden: {
       opacity: 0,
-      x: mediaX,
-      scale: 0.96,
+      x: reduceMotion ? 0 : mediaX,
+      scale: reduceMotion ? 1 : 0.96,
       transition: fadeOut,
     },
     visible: {
@@ -84,7 +85,7 @@ function ServiceBlock({ service, index, onEnquire }) {
 
   const imageVariants = {
     hidden: {
-      scale: 1.08,
+      scale: reduceMotion ? 1 : 1.08,
       transition: fadeOut,
     },
     visible: {
@@ -109,8 +110,8 @@ function ServiceBlock({ service, index, onEnquire }) {
   const itemVariants = {
     hidden: {
       opacity: 0,
-      x: copyX,
-      y: 14,
+      x: reduceMotion ? 0 : copyX,
+      y: reduceMotion ? 0 : 14,
       transition: fadeOut,
     },
     visible: {
@@ -181,7 +182,7 @@ function ServiceBlock({ service, index, onEnquire }) {
       className={`${classes.block} ${tinted ? classes.tinted : ''} ${imageFirst ? classes.imageFirst : classes.textFirst}`}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.5 }}
+      viewport={{ once: false, amount: 0.28 }}
       variants={blockVariants}
     >
       <motion.div className={classes.inner} variants={innerVariants}>

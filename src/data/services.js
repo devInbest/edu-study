@@ -84,7 +84,7 @@ export const services = [
     title: 'Course Selection Guidance',
     short: 'Choose the right degree for your goals.',
     description:
-      'From MBBS and engineering to MBA and specialised programmes — evaluate outcomes, eligibility, and progression before you commit.',
+      'From MBBS, MD/MS, and engineering to MBA and specialised programmes — evaluate outcomes, eligibility, and progression before you commit.',
     highlights: [
       'Course outcomes and career pathway review',
       'Eligibility and progression guidance',

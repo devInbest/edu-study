@@ -2,14 +2,21 @@
 @use '@/styles/variables.scss' as *;
 
 .section {
-  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(2rem, 5vw, 4.5rem);
+  overflow-x: clip;
 }
 
 .header {
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: clamp(1.25rem, 3vw, 2.25rem);
   max-width: 60rem;
   margin-inline: auto;
   text-align: center;
+  padding-inline: 0.15rem;
+
+  :global(.sectionTitle) {
+    font-size: clamp(1.55rem, 5vw, 2.75rem);
+    overflow-wrap: break-word;
+  }
 }
 
 .eyebrow {
@@ -26,6 +33,8 @@
   margin-inline: auto;
   display: grid;
   gap: 0.45rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .item {
@@ -33,6 +42,7 @@
   border: 1px solid rgba($deep-blue, 0.1);
   background: transparent;
   overflow: hidden;
+  min-width: 0;
   transition:
     background 0.25s ease,
     border-color 0.25s ease,
@@ -71,14 +81,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
-  padding: 0.95rem 1.1rem;
+  gap: clamp(0.65rem, 3vw, 1.25rem);
+  padding: clamp(0.8rem, 2.5vw, 0.95rem) clamp(0.8rem, 3vw, 1.1rem);
   border: 0;
   background: transparent;
   cursor: pointer;
   text-align: left;
   color: $deep-blue;
   border-radius: 0.9rem;
+  min-width: 0;
   transition:
     color 0.2s ease,
     background 0.2s ease,
@@ -96,15 +107,18 @@
 
 .question {
   font-family: var(--font-body), sans-serif;
-  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  font-size: clamp(0.92rem, 2.8vw, 1.12rem);
   font-weight: 600;
   line-height: 1.45;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: break-word;
 }
 
 .icon {
   flex-shrink: 0;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: clamp(1.65rem, 5vw, 1.85rem);
+  height: clamp(1.65rem, 5vw, 1.85rem);
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -121,10 +135,12 @@
 
   p {
     margin: 0;
-    padding: 0.9rem 1.1rem 1.05rem;
+    padding: clamp(0.75rem, 2.5vw, 0.9rem) clamp(0.8rem, 3vw, 1.1rem)
+      clamp(0.9rem, 2.5vw, 1.05rem);
     max-width: 75ch;
     color: var(--brand-muted);
-    font-size: 1.02rem;
-    line-height: 1.7;
+    font-size: clamp(0.92rem, 2.5vw, 1.02rem);
+    line-height: 1.65;
+    overflow-wrap: break-word;
   }
 }

@@ -12,9 +12,9 @@ import classes from './ServicesFaq.module.scss';
 
 const ease = [0.22, 1, 0.36, 1];
 
-function FaqItem({ item, index, open, onToggle, reduceMotion }) {
-  const panelId = `services-faq-panel-${index}`;
-  const buttonId = `services-faq-button-${index}`;
+function FaqItem({ item, index, open, onToggle, reduceMotion, idPrefix }) {
+  const panelId = `${idPrefix}-panel-${index}`;
+  const buttonId = `${idPrefix}-button-${index}`;
 
   return (
     <div className={`${classes.item} ${open ? classes.open : ''}`}>
@@ -60,27 +60,33 @@ function FaqItem({ item, index, open, onToggle, reduceMotion }) {
   );
 }
 
-export default function ServicesFaq() {
+export default function ServicesFaq({
+  items = servicesFaq,
+  title = 'Questions Frequently Asked',
+  titleId = 'services-faq-title',
+  idPrefix = 'services-faq',
+}) {
   const [openIndex, setOpenIndex] = useState(0);
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className={classes.section} aria-labelledby="services-faq-title">
+    <section className={classes.section} aria-labelledby={titleId}>
       <Container>
         <ScrollReveal className={classes.header}>
-          <h2 id="services-faq-title" className="sectionTitle">
-            Questions Frequently Asked
+          <h2 id={titleId} className="sectionTitle">
+            {title}
           </h2>
         </ScrollReveal>
 
         <ScrollReveal className={classes.list} delay={0.08}>
-          {servicesFaq.map((item, index) => (
+          {items.map((item, index) => (
             <FaqItem
               key={item.question}
               item={item}
               index={index}
               open={openIndex === index}
               reduceMotion={reduceMotion}
+              idPrefix={idPrefix}
               onToggle={() => setOpenIndex((current) => (current === index ? -1 : index))}
             />
           ))}

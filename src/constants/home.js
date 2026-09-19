@@ -10,32 +10,32 @@ export const whyChooseUs = [
 export const destinations = [
   {
     name: 'United Kingdom',
-    flag: '🇬🇧',
+    flagCode: 'gb',
     blurb: 'World-class universities and research-led campuses.',
   },
   {
     name: 'Canada',
-    flag: '🇨🇦',
+    flagCode: 'ca',
     blurb: 'Welcoming pathways and strong career outcomes.',
   },
   {
     name: 'Australia',
-    flag: '🇦🇺',
+    flagCode: 'au',
     blurb: 'Vibrant student cities and practical learning.',
   },
   {
     name: 'USA',
-    flag: '🇺🇸',
+    flagCode: 'us',
     blurb: 'Flexible degrees and innovation-focused education.',
   },
   {
     name: 'Germany',
-    flag: '🇩🇪',
+    flagCode: 'de',
     blurb: 'Engineering excellence with global recognition.',
   },
   {
     name: 'India',
-    flag: '🇮🇳',
+    flagCode: 'in',
     blurb: 'Top medical, management and engineering colleges.',
   },
 ];

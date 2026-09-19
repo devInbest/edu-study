@@ -2,13 +2,24 @@
 
 export const courseLinks = [
   {
-    slug: 'mbbs-md-ms',
-    label: 'MBBS/MD/MS',
-    href: '/courses/mbbs-md-ms',
+    slug: 'mbbs',
+    label: 'MBBS',
+    href: '/courses/mbbs',
     stream: 'MBBS/MD/MS',
-    title: 'MBBS / MD / MS Colleges',
+    degrees: ['MBBS'],
+    title: 'MBBS Colleges',
     description:
-      'Explore medical colleges offering MBBS, MD, and MS programmes. Get counselling on eligibility, NEET pathways, and admissions.',
+      'Explore medical colleges offering MBBS programmes. Get counselling on eligibility, NEET-UG pathways, and admissions.',
+  },
+  {
+    slug: 'md-ms',
+    label: 'MD/MS',
+    href: '/courses/md-ms',
+    stream: 'MBBS/MD/MS',
+    degrees: ['MD', 'MS'],
+    title: 'MD / MS Colleges',
+    description:
+      'Explore medical colleges offering MD and MS postgraduate programmes. Get counselling on eligibility, NEET-PG pathways, and admissions.',
   },
   {
     slug: 'mba',
@@ -23,13 +34,19 @@ export const courseLinks = [
     slug: 'btech',
     label: 'B.Tech',
     href: '/courses/btech',
-    stream: 'Engineering',
-    title: 'B.Tech / Engineering Colleges',
+    stream: 'B.Tech',
+    title: 'B.Tech Colleges',
     description:
       'Browse engineering and technology institutes offering B.Tech, B.E., and postgraduate engineering programmes.',
   },
 ];
 
+/** Legacy combined medical slug → primary MBBS course page. */
+export const courseSlugRedirects = {
+  'mbbs-md-ms': 'mbbs',
+};
+
 export function getCourseBySlug(slug) {
-  return courseLinks.find((course) => course.slug === slug) || null;
+  const resolved = courseSlugRedirects[slug] || slug;
+  return courseLinks.find((course) => course.slug === resolved) || null;
 }

@@ -2,21 +2,20 @@
 
 import { useState } from 'react';
 
-import { IconBrandWhatsapp } from '@tabler/icons-react';
-
 import AppButton from '@/components/common/AppButton/AppButton';
 import Container from '@/components/common/Container/Container';
 import ScrollReveal from '@/components/common/ScrollReveal/ScrollReveal';
+import WhatsAppIcon from '@/components/common/WhatsAppIcon/WhatsAppIcon';
 import EnquiryModal from '@/components/forms/EnquiryModal/EnquiryModal';
 import { getWhatsAppUrl } from '@/utils/helpers';
 
 import classes from './CtaBanner.module.scss';
 
-export default function CtaBanner() {
+export default function CtaBanner({ className = '' }) {
   const [enquiryOpen, setEnquiryOpen] = useState(false);
 
   return (
-    <section className={classes.section}>
+    <section className={`${classes.section} ${className}`.trim()}>
       <Container>
         <ScrollReveal className={classes.inner}>
           <div>
@@ -36,8 +35,8 @@ export default function CtaBanner() {
               href={getWhatsAppUrl()}
               external
               size="md"
-              variant="white"
-              leftSection={<IconBrandWhatsapp size={18} />}
+              leftSection={<WhatsAppIcon size={18} />}
+              className={classes.waBtn}
             >
               WhatsApp Us
             </AppButton>

@@ -4,7 +4,8 @@
   display: inline-flex;
   align-items: center;
   line-height: 0;
-  max-width: min(52vw, 240px);
+  max-width: min(48vw, 240px);
+  min-width: 0;
 
   @include desktop {
     max-width: 300px;
@@ -14,8 +15,12 @@
 .image {
   width: 100%;
   height: auto;
-  max-height: 3rem;
+  max-height: 2.75rem;
   object-fit: contain;
+
+  @include tablet {
+    max-height: 3rem;
+  }
 
   @include desktop {
     max-height: 3.75rem;

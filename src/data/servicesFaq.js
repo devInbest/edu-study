@@ -32,7 +32,7 @@ export const servicesFaq = [
   {
     question: 'Can you help me choose the right course?',
     answer:
-      'Yes. From MBBS and engineering to MBA and specialised programmes, we explain eligibility, outcomes, and progression paths so you choose a course aligned with your long-term goals.',
+      'Yes. From MBBS, MD/MS, and engineering to MBA and specialised programmes, we explain eligibility, outcomes, and progression paths so you choose a course aligned with your long-term goals.',
   },
   {
     question: 'How do I get started?',

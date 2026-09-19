@@ -58,6 +58,94 @@
   }
 }
 
+.glass {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(#fff, 0.22) 0%,
+      rgba(#fff, 0.1) 42%,
+      rgba($deep-blue, 0.22) 100%
+    );
+  border: 1px solid rgba(#fff, 0.32);
+  box-shadow:
+    0 24px 48px -20px rgba(0, 16, 40, 0.55),
+    inset 0 1px 0 rgba(#fff, 0.35);
+  backdrop-filter: blur(18px) saturate(1.45);
+  -webkit-backdrop-filter: blur(18px) saturate(1.45);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -40% -20% auto auto;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($gold, 0.28), transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto auto -35% -25%;
+    width: 65%;
+    height: 65%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(#7dd3fc, 0.22), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .heading {
+    h2 {
+      color: #fff;
+      font-size: 1.45rem;
+    }
+
+    p:last-child {
+      color: rgba(#fff, 0.72);
+    }
+  }
+
+  .eyebrow {
+    color: $gold-light;
+  }
+
+  .accentHeadline {
+    color: $gold-light !important;
+  }
+
+  .submit {
+    background: linear-gradient(135deg, $gold, $gold-light) !important;
+    color: $deep-blue !important;
+    font-weight: 800;
+    border: none !important;
+
+    &:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+  }
+
+  .successMsg {
+    color: #9dffc2;
+  }
+
+  .errorMsg {
+    color: #ffb4b4;
+  }
+}
+
 .heading {
   display: grid;
   gap: 0.3rem;
@@ -80,6 +168,20 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: $gold;
+}
+
+.accentTitle {
+  gap: 0;
+}
+
+.accentHeadline {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.05rem !important;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gold-light !important;
 }
 
 .grid {
@@ -116,6 +218,7 @@
 .submit {
   background: linear-gradient(135deg, $deep-blue, $deep-blue-mid) !important;
   border: none !important;
+  border-radius: 0.35rem !important;
   margin-top: 0;
   transition: transform 0.2s ease, filter 0.2s ease;
 }

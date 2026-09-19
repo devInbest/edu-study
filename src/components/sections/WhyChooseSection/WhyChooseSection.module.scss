@@ -138,8 +138,21 @@
 }
 
 .flag {
-  font-size: 1.55rem;
-  line-height: 1;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 1.85rem;
+  overflow: hidden;
+  border-radius: 0.28rem;
+  box-shadow: 0 1px 3px rgba($deep-blue, 0.18);
+  background: rgba($deep-blue, 0.06);
+}
+
+.flagImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .viewBtn {

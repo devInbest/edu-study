@@ -1,34 +1,50 @@
+@use '@/styles/mixins.scss' as *;
 @use '@/styles/variables.scss' as *;
 
 .hero {
-  padding-block: 2.8rem 2rem;
+  padding-block: clamp(1.75rem, 4vw, 2.8rem) clamp(1.4rem, 3vw, 2rem);
   background:
     linear-gradient(120deg, rgba($deep-blue, 0.96), rgba($deep-blue-mid, 0.9)),
     radial-gradient(circle at 90% 10%, rgba($gold, 0.25), transparent 40%);
   color: #fff;
+  overflow-x: clip;
 }
 
 .inner {
   display: grid;
-  gap: 0.65rem;
+  gap: clamp(0.45rem, 1.5vw, 0.65rem);
   max-width: 720px;
+  min-width: 0;
 
   h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.12;
+    font-size: clamp(1.55rem, 5.2vw, 3rem);
+    line-height: 1.15;
+    margin: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   p:last-child {
     color: rgba(#fff, 0.78);
     max-width: 52ch;
-    font-size: 1.02rem;
+    font-size: clamp(0.92rem, 2.5vw, 1.02rem);
+    line-height: 1.6;
+    margin: 0;
+    overflow-wrap: break-word;
   }
 }
 
 .eyebrow {
-  font-size: 0.75rem;
+  margin: 0;
+  font-size: clamp(0.7rem, 2vw, 0.75rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $gold-light;
+}
+
+@media (max-width: 360px) {
+  .inner h1 {
+    font-size: 1.45rem;
+  }
 }

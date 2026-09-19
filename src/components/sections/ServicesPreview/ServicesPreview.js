@@ -13,6 +13,7 @@ import {
 import { motion } from 'framer-motion';
 
 import Container from '@/components/common/Container/Container';
+import AppButton from '@/components/common/AppButton/AppButton';
 import ScrollReveal from '@/components/common/ScrollReveal/ScrollReveal';
 import { serviceColors } from '@/constants/home';
 import { services } from '@/data/services';
@@ -35,16 +36,12 @@ export default function ServicesPreview({ showAllLink = true }) {
         <ScrollReveal className={classes.header}>
           <div>
             <p className={classes.eyebrow}>Our services</p>
-            <h2 className="sectionTitle">Comprehensive Support for Your Education Journey</h2>
-            <p className="sectionLead">
-              Colourful, clear guidance across every step — from first counselling call to campus
-              support.
-            </p>
+            <h2 className="sectionTitle">Support for Your Education Journey</h2>
           </div>
           {showAllLink ? (
-            <Link href="/services" className={classes.allLink}>
-              View all services →
-            </Link>
+            <AppButton href="/services" variant="outline" color="navy">
+              View all services
+            </AppButton>
           ) : null}
         </ScrollReveal>
 

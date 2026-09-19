@@ -10,9 +10,10 @@ import {
 } from '@tabler/icons-react';
 
 import facebookIcon from '@/assets/icons/facebook.png';
+import contactBanner from '@/assets/images/banners/contact.jpg';
 import instagramIcon from '@/assets/icons/instagram.png';
 import Container from '@/components/common/Container/Container';
-import PageHero from '@/components/common/PageHero/PageHero';
+import PageBanner from '@/components/common/PageBanner/PageBanner';
 import EnquiryForm from '@/components/forms/EnquiryForm/EnquiryForm';
 import env from '@/constants/env';
 import { contactPlaceholders, socialLinks } from '@/constants/site';
@@ -31,10 +32,13 @@ export default function ContactPage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Contact"
-        title="Let’s plan your next step together"
-        description="Send an enquiry or reach us on WhatsApp. Office address and social links will be updated once confirmed by the client."
+      <PageBanner
+        image={contactBanner}
+        imageAlt="Indian education counsellor welcoming a student and parent"
+        eyebrow="Get In Touch"
+        title="Contact Us"
+        icon="contact"
+        priority
       />
 
       <section className={classes.section}>
@@ -127,7 +131,7 @@ export default function ContactPage() {
             </div>
 
             <div className={classes.formCol}>
-              <EnquiryForm compact variant="dark" />
+              <EnquiryForm compact variant="dark" eyebrow="" />
             </div>
           </div>
 

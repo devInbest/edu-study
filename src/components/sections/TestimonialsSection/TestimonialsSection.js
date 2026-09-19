@@ -15,9 +15,6 @@ export default function TestimonialsSection() {
         <ScrollReveal className={classes.header}>
           <p className={classes.eyebrow}>Testimonials</p>
           <h2 className="sectionTitle">What Our Students & Parents Say</h2>
-          <p className="sectionLead">
-            Real stories from students who found clarity, confidence, and the right next step.
-          </p>
         </ScrollReveal>
 
         <div className={classes.grid}>

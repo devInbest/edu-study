@@ -17,7 +17,7 @@ export default function CollegesPage() {
       <PageHero
         eyebrow="College directory"
         title="Find colleges that match your goals"
-        description="Search and filter institutions across MBBS/MD/MS, MBA, and Engineering pathways."
+        description="Search and filter institutions across MBBS, MD/MS, MBA, and B.Tech pathways."
       />
       <section className={classes.section}>
         <Container>
