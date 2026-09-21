@@ -122,7 +122,11 @@
   }
 
   .accentHeadline {
-    color: $gold-light !important;
+    color: #fff !important;
+  }
+
+  :global(.mantine-Input-input)::placeholder {
+    color: rgba(#fff, 0.7) !important;
   }
 
   .submit {
@@ -172,16 +176,19 @@
 
 .accentTitle {
   gap: 0;
+  text-align: center;
+  justify-items: center;
 }
 
 .accentHeadline {
   margin: 0;
   font-family: var(--font-display), sans-serif;
-  font-size: 1.05rem !important;
+  font-size: 32px !important;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $gold-light !important;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  text-align: center;
+  color: #fff !important;
 }
 
 .grid {

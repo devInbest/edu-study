@@ -92,6 +92,7 @@ export default function CollegeCard({ college }) {
         </motion.span>
 
         <motion.div
+          className={classes.footer}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

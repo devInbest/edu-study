@@ -16,7 +16,6 @@ export default function WhyChooseSection() {
       <Container className={classes.grid}>
         <ScrollReveal className={classes.why} direction="left">
           <div className={classes.whyInner}>
-            <p className={classes.eyebrow}>Why choose us</p>
             <h2>Trusted Guidance. Clear Decisions. Stronger Futures.</h2>
             <ul>
               {whyChooseUs.map((item, index) => (
@@ -32,7 +31,6 @@ export default function WhyChooseSection() {
         </ScrollReveal>
 
         <ScrollReveal className={classes.destinations} delay={0.1} direction="right">
-          <p className={classes.eyebrow}>Study destinations</p>
           <h2>Popular Study Destinations</h2>
           <div className={classes.flags}>
             {destinations.map((item, index) => (

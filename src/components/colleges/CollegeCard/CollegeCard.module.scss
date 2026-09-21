@@ -3,6 +3,8 @@
 .card {
   display: grid;
   grid-template-rows: auto 1fr;
+  height: 100%;
+  min-height: 100%;
   background: #fff;
   border: 1px solid rgba($deep-blue, 0.08);
   border-radius: $border-radius;
@@ -75,10 +77,11 @@
 }
 
 .body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.55rem;
   padding: 1.05rem 1.1rem 1.25rem;
-  align-content: start;
+  min-height: 8.75rem;
 
   h3 {
     margin: 0;
@@ -86,6 +89,12 @@
     line-height: 1.35;
     color: $deep-blue;
     transition: color 0.25s ease;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    min-height: calc(1.05rem * 1.35 * 2);
   }
 }
 
@@ -95,6 +104,10 @@
   gap: 0.25rem;
   font-size: 0.8rem;
   color: var(--brand-muted);
+}
+
+.footer {
+  margin-top: auto;
 }
 
 .rating {

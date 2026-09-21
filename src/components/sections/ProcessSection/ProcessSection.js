@@ -13,6 +13,7 @@ import { useReducedMotion } from 'framer-motion';
 
 import Container from '@/components/common/Container/Container';
 import ScrollReveal from '@/components/common/ScrollReveal/ScrollReveal';
+import BackgroundRippleEffect from '@/components/ui/BackgroundRippleEffect/BackgroundRippleEffect';
 import { processSteps } from '@/constants/site';
 
 import ApproachGlobe from './ApproachGlobe';
@@ -36,7 +37,8 @@ export default function ProcessSection() {
 
   return (
     <section className={classes.section} aria-labelledby="approach-title">
-      <Container>
+      <BackgroundRippleEffect cellSize={56} />
+      <Container className={classes.content}>
         <ScrollReveal className={classes.header}>
           <h2 id="approach-title" className="sectionTitle">
             Our approach

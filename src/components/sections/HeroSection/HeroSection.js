@@ -95,11 +95,6 @@ export default function HeroSection() {
               filter
             />
 
-            <p className={classes.supporting}>
-              Expert counselling, college shortlisting, and end-to-end admission support for students
-              who want clarity — not confusion.
-            </p>
-
             <div className={classes.pillars}>
               {pillars.map((item, index) => {
                 const Icon = item.icon;
@@ -154,7 +149,7 @@ export default function HeroSection() {
             <EnquiryForm
               compact
               variant="glass"
-              title="Free counselling"
+              title="Get Free counselling"
               eyebrow=""
               accentTitle
             />

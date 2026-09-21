@@ -35,7 +35,6 @@ export default function ServicesPreview({ showAllLink = true }) {
       <Container>
         <ScrollReveal className={classes.header}>
           <div>
-            <p className={classes.eyebrow}>Our services</p>
             <h2 className="sectionTitle">Support for Your Education Journey</h2>
           </div>
           {showAllLink ? (

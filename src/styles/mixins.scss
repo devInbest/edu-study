@@ -28,3 +28,13 @@
   align-items: center;
   justify-content: center;
 }
+
+@mixin section-bg-soft {
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #eef3f9 14%,
+    #eef3f9 86%,
+    #fff 100%
+  );
+}

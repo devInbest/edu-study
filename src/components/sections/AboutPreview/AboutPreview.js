@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import { IconEye, IconTarget } from '@tabler/icons-react';
+import { IconSparkles, IconTargetArrow } from '@tabler/icons-react';
 
 import aboutBanner from '@/assets/images/banners/about.jpg';
 import AppButton from '@/components/common/AppButton/AppButton';
@@ -11,6 +11,20 @@ import ScrollReveal from '@/components/common/ScrollReveal/ScrollReveal';
 import { aboutContent } from '@/constants/site';
 
 import classes from './AboutPreview.module.scss';
+
+function HexCard({ tone, title, text, icon: Icon, delay = 0 }) {
+  return (
+    <ScrollReveal delay={delay} className={`${classes.hexWrap} ${classes[tone]}`}>
+      <article className={classes.hex}>
+        <span className={classes.hexIcon}>
+          <Icon size={34} stroke={1.6} />
+        </span>
+        <h3>{title}</h3>
+        <p>{text}</p>
+      </article>
+    </ScrollReveal>
+  );
+}
 
 export default function AboutPreview() {
   return (
@@ -31,7 +45,6 @@ export default function AboutPreview() {
         </ScrollReveal>
 
         <ScrollReveal className={classes.copy} delay={0.08}>
-          <p className={classes.eyebrow}>About us</p>
           <h2 className="sectionTitle">Guiding Students Towards A Brighter Future</h2>
           <p className="sectionLead">{aboutContent.philosophy}</p>
           <AppButton href="/about" className={classes.knowMore}>
@@ -40,20 +53,20 @@ export default function AboutPreview() {
         </ScrollReveal>
 
         <div className={classes.cards}>
-          <ScrollReveal delay={0.12} className={classes.card}>
-            <span className={`${classes.icon} ${classes.mission}`}>
-              <IconTarget size={22} />
-            </span>
-            <h3>Our Mission</h3>
-            <p>{aboutContent.mission}</p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2} className={classes.card}>
-            <span className={`${classes.icon} ${classes.vision}`}>
-              <IconEye size={22} />
-            </span>
-            <h3>Our Vision</h3>
-            <p>{aboutContent.vision}</p>
-          </ScrollReveal>
+          <HexCard
+            tone="mission"
+            title="Our Mission"
+            text={aboutContent.mission}
+            icon={IconTargetArrow}
+            delay={0.12}
+          />
+          <HexCard
+            tone="vision"
+            title="Our Vision"
+            text={aboutContent.vision}
+            icon={IconSparkles}
+            delay={0.22}
+          />
         </div>
       </Container>
     </section>

@@ -3,9 +3,9 @@
 
 .hero {
   position: relative;
-  padding-block: clamp(2.4rem, 5vw, 3.8rem) clamp(2.8rem, 5vw, 4.5rem);
+  padding-block: clamp(2.8rem, 6vw, 4.5rem) clamp(3.2rem, 6vw, 5.25rem);
   overflow: hidden;
-  min-height: clamp(34rem, 72vh, 44rem);
+  min-height: clamp(40rem, 88vh, 52rem);
   color: #fff;
 }
 
@@ -40,8 +40,15 @@
   inset: 0;
   z-index: 2;
   background:
-    linear-gradient(105deg, rgba($deep-blue, 0.88) 0%, rgba($deep-blue, 0.72) 42%, rgba($deep-blue, 0.45) 100%),
-    linear-gradient(180deg, rgba($deep-blue, 0.35) 0%, rgba($deep-blue, 0.55) 100%);
+    linear-gradient(
+      115deg,
+      rgba($deep-blue, 0.42) 0%,
+      rgba($deep-blue, 0.22) 45%,
+      rgba(#fff, 0.1) 100%
+    ),
+    linear-gradient(180deg, rgba(#fff, 0.08) 0%, rgba($deep-blue, 0.18) 100%);
+  backdrop-filter: saturate(180%) blur(22px);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
   pointer-events: none;
 }
 
@@ -51,7 +58,7 @@
   display: grid;
   gap: 1.75rem;
   align-items: center;
-  min-height: clamp(28rem, 58vh, 38rem);
+  min-height: clamp(34rem, 70vh, 46rem);
 
   @include desktop {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -62,7 +69,7 @@
 
 .copy {
   display: grid;
-  gap: 1.05rem;
+  gap: 27px;
   color: #fff;
   min-width: 0;
 }
@@ -102,13 +109,6 @@
 
 .dot {
   color: $gold;
-}
-
-.supporting {
-  max-width: 40ch;
-  color: rgba(#fff, 0.84);
-  font-size: 1.02rem;
-  line-height: 1.7;
 }
 
 .pillars {

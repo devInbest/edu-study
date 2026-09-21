@@ -1,0 +1,109 @@
+@use '@/styles/variables.scss' as *;
+
+.root {
+  // Interpolation needed so Sass evaluates rgba() inside custom properties
+  --cell-border-color: #{rgba($deep-blue, 0.1)};
+  --cell-fill-color: #{rgba($deep-blue, 0.04)};
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 8%,
+    #000 28%,
+    #000 86%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 8%,
+    #000 28%,
+    #000 86%,
+    transparent 100%
+  );
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+}
+
+.cell {
+  position: relative;
+  border: 1px solid var(--cell-border-color);
+  background-color: var(--cell-fill-color);
+  opacity: 0.9;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  will-change: transform;
+  cursor: pointer;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 1;
+      background-color: #{rgba($deep-blue, 0.08)};
+      border-color: #{rgba($deep-blue, 0.18)};
+    }
+  }
+}
+
+.cellRipple {
+  animation: cell-ripple var(--duration, 200ms) ease-out var(--delay, 0ms) 1 none;
+}
+
+.cellStatic {
+  pointer-events: none;
+}
+
+@keyframes cell-ripple {
+  0% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cellRipple {
+    animation: none;
+  }
+
+  .cell {
+    transition: none;
+  }
+}

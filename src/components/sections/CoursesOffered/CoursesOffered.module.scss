@@ -1,0 +1,69 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  padding-block: var(--section-space);
+  background: #fff;
+}
+
+.header {
+  display: grid;
+  justify-items: center;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+  font-weight: 700;
+  color: $deep-blue;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 2.75rem) 1rem;
+  justify-items: center;
+
+  @include tablet {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3rem) 1.25rem;
+  }
+}
+
+.item {
+  display: grid;
+  justify-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 10rem;
+  text-align: center;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: clamp(4.5rem, 12vw, 5.5rem);
+  height: clamp(4.5rem, 12vw, 5.5rem);
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.label {
+  font-family: var(--font-body), monospace, sans-serif;
+  font-size: clamp(0.82rem, 1.6vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--brand-ink);
+  line-height: 1.35;
+}

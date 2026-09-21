@@ -2,69 +2,384 @@
 @use '@/styles/variables.scss' as *;
 
 .section {
-  padding-block: var(--section-space);
+  padding-block: calc(var(--section-space) + 1.75rem);
   background:
-    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(253, 184, 19, 0.12), transparent 55%),
-    radial-gradient(ellipse 60% 45% at 90% 10%, rgba(0, 45, 98, 0.08), transparent 50%),
+    radial-gradient(ellipse 55% 40% at 6% 20%, rgba(253, 184, 19, 0.12), transparent 55%),
+    radial-gradient(ellipse 50% 38% at 94% 24%, rgba(0, 45, 98, 0.1), transparent 52%),
     $cream-white;
 }
 
 .header {
-  margin-bottom: clamp(0.85rem, 2vw, 1.75rem);
+  margin-bottom: clamp(2rem, 4.5vw, 3rem);
   text-align: center;
 }
 
-.grid {
-  display: grid;
-  gap: 1.25rem;
+/* —— Capsule diagram —— */
 
-  @include tablet {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+.capsule {
+  --orb-size: clamp(13rem, 32vw, 18rem);
+  --badge-size: 2.4rem;
+  --arc-gap: 0.55rem;
+
+  position: relative;
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  padding-block: clamp(1.25rem, 3vw, 2.5rem);
+
+  @include desktop {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0 clamp(1.75rem, 4vw, 3.25rem);
+    align-items: stretch;
   }
 }
 
-.card {
+.side {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+
+  @include desktop {
+    justify-content: flex-start;
+  }
+}
+
+.vision {
+  @include desktop {
+    justify-content: flex-end;
+  }
+}
+
+/*
+  Stage is sized to the sphere. Points sit on the rim using
+  polar offsets so 01→05 follow the sphere curve exactly like the reference.
+*/
+.orbStage {
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--orb-size) + 18rem);
+  height: calc(var(--orb-size) + 3rem);
+}
+
+.orb {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  transform: translateY(-50%);
+}
+
+.mission .orb {
+  left: 0;
+}
+
+.vision .orb {
+  right: 0;
+}
+
+.orbBloom {
+  position: absolute;
+  inset: -28%;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(30px);
+  opacity: 0.92;
+  z-index: 0;
+}
+
+.orbCore {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  gap: 0.15rem;
+  text-align: center;
+  color: #fff;
+}
+
+.mission .orbBloom {
+  background: radial-gradient(
+    circle,
+    rgba(253, 184, 19, 0.72) 0%,
+    rgba(245, 158, 11, 0.28) 48%,
+    transparent 72%
+  );
+}
+
+.mission .orbCore {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.42), transparent 40%),
+    radial-gradient(circle at 50% 55%, #ffd56a 0%, #fdb813 34%, #d97706 70%, #92400e 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+    0 20px 44px rgba(217, 119, 6, 0.28);
+}
+
+.vision .orbBloom {
+  background: radial-gradient(
+    circle,
+    rgba(26, 107, 184, 0.65) 0%,
+    rgba(0, 45, 98, 0.28) 48%,
+    transparent 72%
+  );
+}
+
+.vision .orbCore {
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.3), transparent 40%),
+    radial-gradient(circle at 50% 55%, #3b82f6 0%, #0a4a8c 36%, #002d62 72%, #011528 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 20px 44px rgba(0, 45, 98, 0.32);
+}
+
+.orbLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1;
+}
+
+.orbCore strong {
+  font-size: clamp(1.5rem, 3vw, 1.95rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.item {
+  position: absolute;
+  display: grid;
+  gap: 0.2rem;
+  pointer-events: auto;
+  width: max-content;
+  max-width: 18.5rem;
+  /* Keep the number badge centered on the sphere rim */
+  transform: translateY(calc(var(--badge-size) / -2));
+}
+
+.vision .item {
+  justify-items: end;
+  text-align: right;
+}
+
+.itemHead {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.vision .itemHead {
+  flex-direction: row-reverse;
+}
+
+.badge {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: var(--badge-size);
+  height: var(--badge-size);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #fff;
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.35) inset;
+}
+
+.mission .badge {
+  background: linear-gradient(160deg, $gold-light 0%, $gold 50%, #d97706 100%);
+  color: $deep-blue;
+}
+
+.vision .badge {
+  background: linear-gradient(160deg, #1a6bb8 0%, $deep-blue-mid 45%, $deep-blue 100%);
+}
+
+.itemHead h3 {
+  margin: 0;
+  font-size: clamp(0.92rem, 1.3vw, 1.02rem);
+  font-weight: 800;
+  color: $deep-blue;
+  line-height: 1.25;
+}
+
+/*
+  Badge left/right edge sits on the sphere rim.
+  Angles −68°…+68° for 01→05 — wider span = more space between points.
+*/
+.mission .item[data-i='1'] {
+  top: calc(50% + var(--orb-size) * 0.5 * -0.927);
+  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+}
+
+.vision .item[data-i='1'] {
+  top: calc(50% + var(--orb-size) * 0.5 * -0.927);
+  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+}
+
+.mission .item[data-i='2'] {
+  top: calc(50% + var(--orb-size) * 0.5 * -0.559);
+  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+}
+
+.vision .item[data-i='2'] {
+  top: calc(50% + var(--orb-size) * 0.5 * -0.559);
+  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+}
+
+.mission .item[data-i='3'] {
+  top: 50%;
+  left: calc(var(--orb-size) - var(--badge-size) * 0.5);
+}
+
+.vision .item[data-i='3'] {
+  top: 50%;
+  right: calc(var(--orb-size) - var(--badge-size) * 0.5);
+}
+
+.mission .item[data-i='4'] {
+  top: calc(50% + var(--orb-size) * 0.5 * 0.559);
+  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+}
+
+.vision .item[data-i='4'] {
+  top: calc(50% + var(--orb-size) * 0.5 * 0.559);
+  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+}
+
+.mission .item[data-i='5'] {
+  top: calc(50% + var(--orb-size) * 0.5 * 0.927);
+  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+}
+
+.vision .item[data-i='5'] {
+  top: calc(50% + var(--orb-size) * 0.5 * 0.927);
+  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+}
+
+/* Mobile: stack under orb */
+@media (max-width: 767px) {
+  .orbStage {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    height: auto;
+    max-width: none;
+  }
+
+  .orb {
+    position: relative;
+    top: auto;
+    left: auto !important;
+    right: auto !important;
+    transform: none;
+  }
+
+  .items {
+    position: relative;
+    inset: auto;
+    display: grid;
+    gap: 1.15rem;
+    width: 100%;
+    max-width: 22rem;
+  }
+
+  .item,
+  .mission .item,
+  .vision .item {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    max-width: none;
+    width: 100%;
+  }
+
+  .vision .item {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .vision .itemHead {
+    flex-direction: row;
+  }
+}
+
+.divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba($deep-blue, 0.16) 18%,
+    rgba($deep-blue, 0.16) 82%,
+    transparent
+  );
+
+  @include desktop {
+    width: 1px;
+    height: auto;
+    align-self: stretch;
+    margin-block: 1.25rem;
+    justify-self: center;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba($deep-blue, 0.16) 10%,
+      rgba($deep-blue, 0.16) 90%,
+      transparent
+    );
+  }
+}
+
+/* —— Philosophy —— */
+
+.philosophy {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-  height: 100%;
   padding: 1.75rem 1.5rem 1.85rem;
   border-radius: 1.15rem;
   color: #fff;
+  background: linear-gradient(145deg, #1a2f4a 0%, #002d62 45%, #0a3d7a 100%);
   box-shadow:
     0 10px 28px rgba(0, 45, 98, 0.12),
     0 1px 2px rgba(0, 0, 0, 0.04);
 
   @include tablet {
-    padding: 2rem 1.85rem 2.1rem;
-  }
-}
-
-.wide {
-  @include tablet {
-    grid-column: 1 / -1;
     padding: 2.15rem 2.1rem 2.25rem;
   }
-
-  .points {
-    @include tablet {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem 1.75rem;
-    }
-  }
-}
-
-.mission {
-  background: linear-gradient(145deg, #002d62 0%, #0a4a8c 55%, #0d5a9e 100%);
-}
-
-.vision {
-  background: linear-gradient(145deg, #0a3d7a 0%, #135a9e 50%, #1a6bb8 100%);
-}
-
-.philosophy {
-  background: linear-gradient(145deg, #1a2f4a 0%, #002d62 45%, #0a3d7a 100%);
 }
 
 .cardTop {
@@ -107,6 +422,11 @@
   padding: 0;
   display: grid;
   gap: 0.65rem;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.75rem;
+  }
 
   li {
     display: flex;

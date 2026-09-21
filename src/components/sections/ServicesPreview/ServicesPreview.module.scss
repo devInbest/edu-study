@@ -3,9 +3,7 @@
 
 .section {
   padding-block: var(--section-space);
-  background:
-    linear-gradient(180deg, rgba($deep-blue, 0.03), transparent 30%),
-    #eef3f9;
+  @include section-bg-soft;
 }
 
 .header {
@@ -15,15 +13,6 @@
   gap: 1rem;
   margin-bottom: 2rem;
   align-items: end;
-}
-
-.eyebrow {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $gold;
-  margin-bottom: 0.45rem;
 }
 
 .grid {

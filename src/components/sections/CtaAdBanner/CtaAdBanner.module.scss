@@ -3,9 +3,10 @@
 
 .section {
   // Headroom for the larger cutout above the band
-  padding-top: clamp(4.5rem, 11vw, 8.5rem);
+  padding-top: clamp(3.25rem, 8vw, 6rem);
   padding-bottom: 0;
   overflow-x: clip;
+  background: #fff;
 }
 
 .band {
@@ -16,7 +17,7 @@
   background:
     radial-gradient(ellipse 55% 70% at 92% 8%, rgba(#fff, 0.35), transparent 52%),
     radial-gradient(ellipse 45% 55% at 6% 92%, rgba($deep-blue, 0.12), transparent 50%),
-    linear-gradient(180deg, #d9f0f2 0%, #a8dce3 42%, #6bb8c9 100%);
+    linear-gradient(180deg, #fff 0%, #d9f0f2 16%, #a8dce3 48%, #6bb8c9 100%);
 }
 
 .shine {

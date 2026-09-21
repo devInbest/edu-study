@@ -2,9 +2,17 @@
 @use '@/styles/variables.scss' as *;
 
 .section {
+  position: relative;
   padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
   background: #fff;
   overflow: visible;
+  isolation: isolate;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .header {
@@ -82,6 +90,8 @@
 }
 
 .slot {
+  pointer-events: auto;
+
   @media (max-width: 767px) {
     position: relative;
     z-index: 1;

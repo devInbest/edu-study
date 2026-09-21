@@ -1,0 +1,70 @@
+@use '@/styles/mixins.scss' as *;
+@use '@/styles/variables.scss' as *;
+
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+  overflow: hidden;
+  background: #fff;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+
+  @include tablet {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.card {
+  display: grid;
+  gap: 0.4rem;
+  place-content: center;
+  text-align: center;
+  padding: clamp(1.5rem, 3.2vw, 2rem) 1.25rem;
+  border-radius: 1.15rem;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 28px -18px rgba($deep-blue, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px -16px rgba($deep-blue, 0.28);
+  }
+
+  &:nth-child(1) {
+    background: linear-gradient(145deg, #e8f1ff 0%, #dce8f8 100%);
+    border-color: rgba($deep-blue, 0.08);
+  }
+
+  &:nth-child(2) {
+    background: linear-gradient(145deg, #fff6e0 0%, #ffefc8 100%);
+    border-color: rgba($gold, 0.28);
+  }
+
+  &:nth-child(3) {
+    background: linear-gradient(145deg, #e6f7f2 0%, #d4f0e8 100%);
+    border-color: rgba(#0d9488, 0.16);
+  }
+}
+
+.value {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 4vw, 2.65rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: $deep-blue;
+}
+
+.label {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  font-weight: 600;
+  color: rgba($deep-blue, 0.72);
+  line-height: 1.35;
+}

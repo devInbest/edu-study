@@ -99,6 +99,9 @@ export default function EnquiryForm({
           color: '#fff',
           borderRadius: '0.65rem',
           backdropFilter: isGlass ? 'blur(8px)' : undefined,
+          '::placeholder': {
+            color: isGlass ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.5)',
+          },
         },
         section: { color: 'rgba(255,255,255,0.8)' },
       }

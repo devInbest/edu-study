@@ -20,7 +20,6 @@ export default function FeaturedColleges() {
       <Container>
         <ScrollReveal className={classes.header}>
           <div>
-            <p className={classes.eyebrow}>College directory</p>
             <h2 className="sectionTitle">Explore Colleges Across India</h2>
           </div>
           <AppButton href="/colleges" variant="outline" color="navy">
@@ -30,7 +29,7 @@ export default function FeaturedColleges() {
 
         <div className={classes.grid}>
           {featured.map((college, index) => (
-            <ScrollReveal key={college.id} delay={index * 0.06}>
+            <ScrollReveal key={college.id} className={classes.item} delay={index * 0.06}>
               <CollegeCard college={college} />
             </ScrollReveal>
           ))}
