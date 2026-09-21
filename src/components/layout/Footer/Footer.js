@@ -106,9 +106,14 @@ export default function Footer() {
       </Container>
 
       <div className={classes.bottom}>
-        <p>
-          © {year} {env.appName}. All rights reserved.
-        </p>
+        <Container className={classes.bottomInner}>
+          <p>
+            © {year} {env.appName}. All rights reserved.
+          </p>
+          <p className={classes.credit}>
+            Developed by <strong className={classes.creditBrand}>DigitallyChalo</strong>
+          </p>
+        </Container>
       </div>
     </footer>
   );

@@ -1,8 +1,12 @@
 import Image from 'next/image';
 
 import {
+  IconBook2,
   IconBuildingSkyscraper,
+  IconFileDescription,
   IconMailOpened,
+  IconSchool,
+  IconShieldLock,
   IconSparkles,
 } from '@tabler/icons-react';
 
@@ -15,6 +19,10 @@ const icons = {
   about: IconBuildingSkyscraper,
   services: IconSparkles,
   contact: IconMailOpened,
+  colleges: IconSchool,
+  courses: IconBook2,
+  terms: IconFileDescription,
+  privacy: IconShieldLock,
 };
 
 export default function PageBanner({

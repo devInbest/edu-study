@@ -1,8 +1,13 @@
 @use '@/styles/mixins.scss' as *;
 @use '@/styles/variables.scss' as *;
 
+.wrap {
+  padding-block: clamp(1rem, 3vw, 1.5rem) 0;
+}
+
 .hero {
-  padding-block: clamp(1.75rem, 4vw, 2.8rem) clamp(1.4rem, 3vw, 2rem);
+  padding-block: clamp(1.5rem, 4vw, 2.8rem) clamp(1.25rem, 3vw, 2rem);
+  padding-inline: clamp(1rem, 3vw, 1.75rem);
   background:
     linear-gradient(120deg, rgba($deep-blue, 0.96), rgba($deep-blue-mid, 0.9)),
     radial-gradient(circle at 90% 10%, rgba($gold, 0.25), transparent 40%);
@@ -12,25 +17,30 @@
 
 .inner {
   display: grid;
-  gap: clamp(0.45rem, 1.5vw, 0.65rem);
-  max-width: 720px;
+  gap: clamp(0.4rem, 1.5vw, 0.65rem);
+  width: 100%;
   min-width: 0;
+  text-align: left;
+  justify-items: start;
 
   h1 {
-    font-size: clamp(1.55rem, 5.2vw, 3rem);
+    font-size: clamp(1.5rem, 5.2vw, 3rem);
     line-height: 1.15;
     margin: 0;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    text-align: left;
   }
 
   p:last-child {
     color: rgba(#fff, 0.78);
     max-width: 52ch;
-    font-size: clamp(0.92rem, 2.5vw, 1.02rem);
+    font-size: clamp(0.9rem, 2.5vw, 1.02rem);
     line-height: 1.6;
     margin: 0;
     overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: left;
   }
 }
 

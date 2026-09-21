@@ -5,7 +5,8 @@
   position: relative;
   padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
   background: #fff;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   isolation: isolate;
 }
 

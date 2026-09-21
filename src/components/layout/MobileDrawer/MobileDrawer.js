@@ -86,6 +86,11 @@ export default function MobileDrawer() {
                   Terms & Conditions
                 </Link>
               </li>
+              <li>
+                <Link href="/privacy" onClick={handleClose}>
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </nav>
 

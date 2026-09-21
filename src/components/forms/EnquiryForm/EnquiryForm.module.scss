@@ -4,11 +4,13 @@
   background: #fff;
   border: 1px solid rgba($deep-blue, 0.08);
   border-radius: 1.25rem;
-  padding: 1.25rem 1.2rem 1.3rem;
+  padding: clamp(1rem, 3.5vw, 1.25rem) clamp(0.9rem, 3vw, 1.2rem) clamp(1.1rem, 3.5vw, 1.3rem);
   box-shadow: var(--shadow-soft);
   display: grid;
   gap: 0.75rem;
   box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
 }
 
 .compact {
@@ -183,7 +185,7 @@
 .accentHeadline {
   margin: 0;
   font-family: var(--font-display), sans-serif;
-  font-size: 32px !important;
+  font-size: clamp(1.35rem, 5vw, 2rem) !important;
   font-weight: 800;
   letter-spacing: -0.02em;
   text-transform: none;

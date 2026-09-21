@@ -4,6 +4,7 @@
 .section {
   padding-block: var(--section-space);
   @include section-bg-soft;
+  overflow-x: clip;
 }
 
 .grid {
@@ -19,25 +20,29 @@
   position: relative;
   border-radius: 1.35rem;
   overflow: hidden;
-  min-height: 420px;
+  min-height: 0;
   background:
     linear-gradient(120deg, rgba($deep-blue, 0.88) 0%, rgba(#001d40, 0.72) 55%, rgba($deep-blue, 0.55) 100%),
     url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=80')
       center / cover no-repeat;
   color: #fff;
+
+  @include tablet {
+    min-height: 420px;
+  }
 }
 
 .whyInner {
   position: relative;
   z-index: 1;
-  padding: 1.8rem 1.5rem;
+  padding: clamp(1.35rem, 4vw, 1.8rem) clamp(1.15rem, 3.5vw, 1.5rem);
   display: grid;
   gap: 1rem;
   height: 100%;
 
   h2 {
     font-family: var(--font-display), sans-serif;
-    font-size: clamp(1.55rem, 2.6vw, 2rem);
+    font-size: clamp(1.4rem, 4.2vw, 2rem);
     max-width: 16ch;
     line-height: 1.2;
   }
@@ -73,7 +78,7 @@
 }
 
 .destinations {
-  padding: 1.6rem 1.4rem;
+  padding: clamp(1.25rem, 3.5vw, 1.6rem) clamp(1.1rem, 3vw, 1.4rem);
   border-radius: 1.35rem;
   background: #fff;
   border: 1px solid rgba($deep-blue, 0.06);
@@ -81,10 +86,11 @@
   display: grid;
   gap: 1rem;
   align-content: start;
+  min-width: 0;
 
   h2 {
     font-family: var(--font-display), sans-serif;
-    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    font-size: clamp(1.35rem, 3.8vw, 1.85rem);
     color: $deep-blue;
   }
 }

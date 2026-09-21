@@ -3,10 +3,14 @@
 
 .hero {
   position: relative;
-  padding-block: clamp(2.8rem, 6vw, 4.5rem) clamp(3.2rem, 6vw, 5.25rem);
+  padding-block: clamp(2rem, 5vw, 4.5rem) clamp(2.5rem, 5.5vw, 5.25rem);
   overflow: hidden;
-  min-height: clamp(40rem, 88vh, 52rem);
+  min-height: 0;
   color: #fff;
+
+  @include desktop {
+    min-height: clamp(40rem, 88vh, 52rem);
+  }
 }
 
 .slider {
@@ -56,14 +60,19 @@
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 1.75rem;
+  gap: 1.5rem;
   align-items: center;
-  min-height: clamp(34rem, 70vh, 46rem);
+  min-height: 0;
+
+  @include tablet {
+    gap: 1.75rem;
+  }
 
   @include desktop {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 2.5rem;
     justify-content: space-between;
+    min-height: clamp(34rem, 70vh, 46rem);
   }
 }
 
@@ -76,7 +85,7 @@
 
 .title {
   font-family: var(--font-display), sans-serif;
-  font-size: clamp(2.15rem, 4.4vw, 3.35rem);
+  font-size: clamp(1.85rem, 5.5vw, 3.35rem);
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -141,6 +150,15 @@
   flex-wrap: wrap;
   gap: 0.65rem;
   margin-top: 0.25rem;
+
+  @media (max-width: 380px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    > * {
+      width: 100%;
+    }
+  }
 }
 
 .waBtn {
@@ -198,7 +216,8 @@
   scroll-margin-top: 5.5rem;
   width: 100%;
   max-width: 30rem;
-  justify-self: start;
+  min-width: 0;
+  justify-self: stretch;
 
   @include desktop {
     justify-self: end;

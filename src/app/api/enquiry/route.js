@@ -28,23 +28,47 @@ export async function POST(request) {
       return Response.json({ message: 'Enquiry received.' }, { status: 200 });
     }
 
-    if (!name.trim() || !isValidIndianMobile(String(mobile).trim()) || !isValidEmail(String(email).trim())) {
+    const trimmedName = String(name).trim();
+    const trimmedMobile = String(mobile).trim();
+    const trimmedEmail = String(email).trim();
+    const trimmedCollege = String(college).trim();
+    const trimmedLocation = String(location).trim();
+    const trimmedMessage = String(message).trim();
+
+    if (
+      !trimmedName ||
+      trimmedName.length < 3 ||
+      !/^[a-zA-Z\s.'-]+$/.test(trimmedName) ||
+      !isValidIndianMobile(trimmedMobile) ||
+      !isValidEmail(trimmedEmail)
+    ) {
       return Response.json({ error: 'Please provide valid name, mobile, and email.' }, { status: 400 });
     }
 
-    if (!preferredCourse || !location.trim() || !qualification) {
+    if (!preferredCourse || !trimmedLocation || trimmedLocation.length < 3 || !qualification) {
       return Response.json({ error: 'Course, location, and qualification are required.' }, { status: 400 });
     }
 
+    if (!trimmedCollege || trimmedCollege.length < 3) {
+      return Response.json({ error: 'College / University is required.' }, { status: 400 });
+    }
+
+    if (!trimmedMessage || trimmedMessage.length < 10 || trimmedMessage.length > 150) {
+      return Response.json(
+        { error: 'Please provide a message between 10 and 150 characters.' },
+        { status: 400 },
+      );
+    }
+
     const payload = {
-      name: name.trim(),
-      mobile: String(mobile).trim(),
-      email: String(email).trim(),
+      name: trimmedName,
+      mobile: trimmedMobile,
+      email: trimmedEmail,
       preferredCourse,
-      college: college.trim() || 'Not specified',
-      location: location.trim(),
+      college: trimmedCollege,
+      location: trimmedLocation,
       qualification,
-      message: message.trim() || 'No message provided',
+      message: trimmedMessage,
       submittedAt: new Date().toISOString(),
     };
 

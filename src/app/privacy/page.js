@@ -1,5 +1,6 @@
+import privacyBanner from '@/assets/images/banners/privacy.jpg';
 import Container from '@/components/common/Container/Container';
-import PageHero from '@/components/common/PageHero/PageHero';
+import PageBanner from '@/components/common/PageBanner/PageBanner';
 import env from '@/constants/env';
 
 import classes from './privacy.module.scss';
@@ -43,10 +44,12 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
+      <PageBanner
+        image={privacyBanner}
+        imageAlt="Counsellor carefully handling a student enquiry with privacy and trust"
         title="Privacy Policy"
-        description="How Edu Study Consultancy collects, uses, and protects information shared through our website."
+        icon="privacy"
+        priority
       />
       <section className={classes.section}>
         <Container className={classes.content}>

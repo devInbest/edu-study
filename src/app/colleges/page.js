@@ -1,5 +1,6 @@
+import collegesBanner from '@/assets/images/banners/colleges.jpg';
 import Container from '@/components/common/Container/Container';
-import PageHero from '@/components/common/PageHero/PageHero';
+import PageBanner from '@/components/common/PageBanner/PageBanner';
 import CollegeDirectory from '@/components/colleges/CollegeDirectory/CollegeDirectory';
 import CtaBanner from '@/components/sections/CtaBanner/CtaBanner';
 
@@ -14,10 +15,13 @@ export const metadata = {
 export default function CollegesPage() {
   return (
     <>
-      <PageHero
-        eyebrow="College directory"
-        title="Find colleges that match your goals"
-        description="Search and filter institutions across MBBS, MD/MS, MBA, and B.Tech pathways."
+      <PageBanner
+        image={collegesBanner}
+        imageAlt="IIT Kharagpur campus building in India"
+        eyebrow="College Directory"
+        title="Colleges"
+        icon="colleges"
+        priority
       />
       <section className={classes.section}>
         <Container>

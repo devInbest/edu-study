@@ -48,16 +48,57 @@ export default function EnquiryForm({
 
   function validate() {
     const next = {};
-    if (!values.name.trim()) next.name = 'Name is required';
-    if (!/^[6-9]\d{9}$/.test(values.mobile.trim())) {
+    const name = values.name.trim();
+    const mobile = values.mobile.trim();
+    const email = values.email.trim();
+    const college = values.college.trim();
+    const location = values.location.trim();
+    const message = values.message.trim();
+
+    if (!name) {
+      next.name = 'Name is required';
+    } else if (name.length < 3) {
+      next.name = 'Enter at least 3 characters';
+    } else if (!/^[a-zA-Z\s.'-]+$/.test(name)) {
+      next.name = 'Name can only contain letters';
+    }
+
+    if (!mobile) {
+      next.mobile = 'Mobile number is required';
+    } else if (!/^[6-9]\d{9}$/.test(mobile)) {
       next.mobile = 'Enter a valid 10-digit Indian mobile number';
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
+
+    if (!email) {
+      next.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       next.email = 'Enter a valid email';
     }
+
     if (!values.preferredCourse) next.preferredCourse = 'Select a course';
-    if (!values.location.trim()) next.location = 'Location is required';
+
+    if (!college) {
+      next.college = 'College / University is required';
+    } else if (college.length < 3) {
+      next.college = 'Enter at least 3 characters';
+    }
+
+    if (!location) {
+      next.location = 'Location is required';
+    } else if (location.length < 3) {
+      next.location = 'Enter at least 3 characters';
+    }
+
     if (!values.qualification) next.qualification = 'Select qualification';
+
+    if (!message) {
+      next.message = 'Message is required';
+    } else if (message.length < 10) {
+      next.message = 'Please share a bit more (at least 10 characters)';
+    } else if (message.length > 150) {
+      next.message = 'Message must be 150 characters or fewer';
+    }
+
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -84,6 +125,7 @@ export default function EnquiryForm({
       setStatus('success');
       setServerMessage(data.message || 'Thank you! Our counsellor will contact you soon.');
       setValues({ ...initialValues, college: defaultCollege });
+      setErrors({});
     } catch (error) {
       setStatus('error');
       setServerMessage(error.message || 'Something went wrong. Please try again.');
@@ -171,6 +213,8 @@ export default function EnquiryForm({
           placeholder="Preferred institution"
           value={values.college}
           onChange={(e) => updateField('college', e.currentTarget.value)}
+          error={errors.college}
+          required
           styles={inputStyles}
         />
         <TextInput
@@ -199,8 +243,11 @@ export default function EnquiryForm({
           label="Message"
           placeholder="Tell us about your goals"
           minRows={compact ? 2 : 3}
+          maxLength={150}
           value={values.message}
           onChange={(e) => updateField('message', e.currentTarget.value)}
+          error={errors.message}
+          required
           styles={inputStyles}
         />
       </div>

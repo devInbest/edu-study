@@ -4,6 +4,7 @@
 .section {
   padding-block: var(--section-space);
   @include section-bg-soft;
+  overflow-x: clip;
 }
 
 .grid {
@@ -20,9 +21,13 @@
   position: relative;
   border-radius: 1.35rem;
   overflow: hidden;
-  min-height: 280px;
+  min-height: 220px;
   aspect-ratio: 4 / 5;
   box-shadow: var(--shadow-soft);
+
+  @include tablet {
+    min-height: 260px;
+  }
 
   @include desktop {
     min-height: 320px;

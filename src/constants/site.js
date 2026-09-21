@@ -118,8 +118,8 @@ export const socialLinks = {
 };
 
 export const qualificationOptions = [
-  'Class 10',
-  'Class 12 / Intermediate',
+  'Class 10th',
+  'Class 12th',
   'Diploma',
   'Undergraduate',
   'Postgraduate',
@@ -129,8 +129,8 @@ export const qualificationOptions = [
 export const coursePreferenceOptions = [
   'MBBS',
   'MD / MS',
-  'MBA / Management',
-  'B.Tech',
+  'Management',
+  'Engineering',
   'Pharmacy',
   'Nursing',
   'Other',

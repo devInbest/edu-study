@@ -19,7 +19,9 @@
 .capsule {
   --orb-size: clamp(13rem, 32vw, 18rem);
   --badge-size: 2.4rem;
-  --arc-gap: 0.55rem;
+  /* Space between sphere rim and point badges */
+  --orb-pad: 2rem;
+  --point-r: calc(var(--orb-size) * 0.5 + var(--orb-pad));
 
   position: relative;
   display: grid;
@@ -58,8 +60,8 @@
 .orbStage {
   position: relative;
   width: 100%;
-  max-width: calc(var(--orb-size) + 18rem);
-  height: calc(var(--orb-size) + 3rem);
+  max-width: calc(var(--orb-size) + var(--orb-pad) * 2 + 18rem);
+  height: calc(var(--point-r) * 2 + var(--badge-size) + 1.25rem);
 }
 
 .orb {
@@ -226,66 +228,70 @@
   margin: 0;
   font-size: clamp(0.92rem, 1.3vw, 1.02rem);
   font-weight: 800;
-  color: $deep-blue;
+  color: #000;
   line-height: 1.25;
 }
 
 /*
-  Badge left/right edge sits on the sphere rim.
+  Badges sit on a padded arc outside the sphere rim (--orb-pad).
   Angles −68°…+68° for 01→05 — wider span = more space between points.
 */
 .mission .item[data-i='1'] {
-  top: calc(50% + var(--orb-size) * 0.5 * -0.927);
-  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * -0.927);
+  left: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.375 - var(--badge-size) * 0.5);
 }
 
 .vision .item[data-i='1'] {
-  top: calc(50% + var(--orb-size) * 0.5 * -0.927);
-  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * -0.927);
+  right: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.375 - var(--badge-size) * 0.5);
 }
 
 .mission .item[data-i='2'] {
-  top: calc(50% + var(--orb-size) * 0.5 * -0.559);
-  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * -0.559);
+  left: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.829 - var(--badge-size) * 0.5);
 }
 
 .vision .item[data-i='2'] {
-  top: calc(50% + var(--orb-size) * 0.5 * -0.559);
-  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * -0.559);
+  right: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.829 - var(--badge-size) * 0.5);
 }
 
 .mission .item[data-i='3'] {
   top: 50%;
-  left: calc(var(--orb-size) - var(--badge-size) * 0.5);
+  left: calc(var(--orb-size) * 0.5 + var(--point-r) - var(--badge-size) * 0.5);
 }
 
 .vision .item[data-i='3'] {
   top: 50%;
-  right: calc(var(--orb-size) - var(--badge-size) * 0.5);
+  right: calc(var(--orb-size) * 0.5 + var(--point-r) - var(--badge-size) * 0.5);
 }
 
 .mission .item[data-i='4'] {
-  top: calc(50% + var(--orb-size) * 0.5 * 0.559);
-  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * 0.559);
+  left: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.829 - var(--badge-size) * 0.5);
 }
 
 .vision .item[data-i='4'] {
-  top: calc(50% + var(--orb-size) * 0.5 * 0.559);
-  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.829) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * 0.559);
+  right: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.829 - var(--badge-size) * 0.5);
 }
 
 .mission .item[data-i='5'] {
-  top: calc(50% + var(--orb-size) * 0.5 * 0.927);
-  left: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * 0.927);
+  left: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.375 - var(--badge-size) * 0.5);
 }
 
 .vision .item[data-i='5'] {
-  top: calc(50% + var(--orb-size) * 0.5 * 0.927);
-  right: calc(var(--orb-size) * (0.5 + 0.5 * 0.375) - var(--badge-size) * 0.5);
+  top: calc(50% + var(--point-r) * 0.927);
+  right: calc(var(--orb-size) * 0.5 + var(--point-r) * 0.375 - var(--badge-size) * 0.5);
 }
 
-/* Mobile: stack under orb */
-@media (max-width: 767px) {
+/* Below desktop: stack lists under orb (capsule is already 1-col until desktop) */
+@media (max-width: 1023px) {
+  .capsule {
+    --orb-size: clamp(11.5rem, 42vw, 16rem);
+  }
+
   .orbStage {
     display: grid;
     justify-items: center;
@@ -369,7 +375,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-  padding: 1.75rem 1.5rem 1.85rem;
+  padding: clamp(1.35rem, 4vw, 1.75rem) clamp(1.1rem, 3.5vw, 1.5rem) clamp(1.45rem, 4vw, 1.85rem);
   border-radius: 1.15rem;
   color: #fff;
   background: linear-gradient(145deg, #1a2f4a 0%, #002d62 45%, #0a3d7a 100%);

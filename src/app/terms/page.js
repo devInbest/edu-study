@@ -1,5 +1,6 @@
+import termsBanner from '@/assets/images/banners/terms.jpg';
 import Container from '@/components/common/Container/Container';
-import PageHero from '@/components/common/PageHero/PageHero';
+import PageBanner from '@/components/common/PageBanner/PageBanner';
 import env from '@/constants/env';
 
 import classes from './terms.module.scss';
@@ -51,10 +52,12 @@ const sections = [
 export default function TermsPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
+      <PageBanner
+        image={termsBanner}
+        imageAlt="Education counsellor and student reviewing counselling agreement documents"
         title="Terms & Conditions"
-        description="Please read these terms carefully before using our website or counselling services."
+        icon="terms"
+        priority
       />
       <section className={classes.section}>
         <Container className={classes.content}>

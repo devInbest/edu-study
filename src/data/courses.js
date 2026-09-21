@@ -23,7 +23,7 @@ export const courseLinks = [
   },
   {
     slug: 'mba',
-    label: 'MBA',
+    label: 'Management',
     href: '/courses/mba',
     stream: 'MBA',
     title: 'MBA Colleges',
@@ -32,7 +32,7 @@ export const courseLinks = [
   },
   {
     slug: 'btech',
-    label: 'B.Tech',
+    label: 'Engineering',
     href: '/courses/btech',
     stream: 'B.Tech',
     title: 'B.Tech Colleges',
