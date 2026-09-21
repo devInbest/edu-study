@@ -33,13 +33,13 @@ pnpm install
 cp .env.example .env.local
 ```
 
-3. Fill SMTP settings in `.env.local` for enquiry emails:
+3. Fill SMTP settings in `.env.local` for enquiry emails (required — every form submit sends mail):
 
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
 - `ENQUIRY_TO_EMAIL`, `ENQUIRY_FROM_EMAIL`
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`, contact/social URLs
 
-Without SMTP configured, enquiries still validate and log to the server console (useful in local development).
+For Gmail, use `smtp.gmail.com` + port `587`, and set `SMTP_PASS` to a Google App Password (2FA must be on). Without SMTP credentials, `/api/enquiry` returns 503.
 
 4. Run locally:
 
