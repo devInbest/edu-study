@@ -30,6 +30,12 @@ export function getMailConfig() {
   };
 }
 
+function allowEtherealFallback() {
+  if (process.env.SMTP_USE_ETHEREAL === 'true') return true;
+  if (process.env.SMTP_USE_ETHEREAL === 'false') return false;
+  return process.env.NODE_ENV !== 'production';
+}
+
 function buildEnquiryBodies(payload) {
   const rows = [
     ['Name', payload.name],
@@ -67,14 +73,27 @@ function buildEnquiryBodies(payload) {
   return { text, html };
 }
 
-/**
- * Sends the enquiry notification email to the consultancy inbox.
- * Throws with code MAIL_NOT_CONFIGURED when SMTP env is incomplete.
- */
-export async function sendEnquiryEmail(payload) {
+async function createTransporter() {
   const config = getMailConfig();
 
-  if (!config.configured) {
+  if (config.configured) {
+    return {
+      transporter: nodemailer.createTransport({
+        host: config.host,
+        port: config.port,
+        secure: config.secure,
+        auth: {
+          user: config.user,
+          pass: config.pass,
+        },
+      }),
+      to: config.to,
+      from: config.from,
+      mode: 'smtp',
+    };
+  }
+
+  if (!allowEtherealFallback()) {
     const error = new Error(
       'Email is not configured. Set SMTP_HOST, SMTP_USER, SMTP_PASS, and ENQUIRY_TO_EMAIL.',
     );
@@ -82,24 +101,49 @@ export async function sendEnquiryEmail(payload) {
     throw error;
   }
 
-  const transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
-    secure: config.secure,
-    auth: {
-      user: config.user,
-      pass: config.pass,
-    },
-  });
+  const testAccount = await nodemailer.createTestAccount();
+  console.warn(
+    '[mail] SMTP not fully configured — using Ethereal test inbox. Set SMTP_PASS for real Gmail delivery.',
+  );
 
+  return {
+    transporter: nodemailer.createTransport({
+      host: testAccount.smtp.host,
+      port: testAccount.smtp.port,
+      secure: testAccount.smtp.secure,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    }),
+    to: process.env.ENQUIRY_TO_EMAIL?.trim() || testAccount.user,
+    from: testAccount.user,
+    mode: 'ethereal',
+  };
+}
+
+/**
+ * Sends the enquiry notification email to the consultancy inbox.
+ * Throws with code MAIL_NOT_CONFIGURED when SMTP env is incomplete in production.
+ * In local/dev (or SMTP_USE_ETHEREAL=true), falls back to Ethereal and returns a preview URL.
+ */
+export async function sendEnquiryEmail(payload) {
+  const { transporter, to, from, mode } = await createTransporter();
   const { text, html } = buildEnquiryBodies(payload);
 
-  await transporter.sendMail({
-    from: `"Edu Study Consultancy" <${config.from}>`,
-    to: config.to,
+  const info = await transporter.sendMail({
+    from: `"Edu Study Consultancy" <${from}>`,
+    to,
     replyTo: payload.email,
     subject: `New counselling enquiry — ${payload.name}`,
     text,
     html,
   });
+
+  const previewUrl = nodemailer.getTestMessageUrl(info) || null;
+  if (previewUrl) {
+    console.info('[mail] Ethereal preview:', previewUrl);
+  }
+
+  return { mode, messageId: info.messageId, previewUrl };
 }

@@ -72,11 +72,19 @@ export async function POST(request) {
       submittedAt: new Date().toISOString(),
     };
 
-    await sendEnquiryEmail(payload);
+    const result = await sendEnquiryEmail(payload);
 
-    return Response.json({
+    const response = {
       message: 'Thank you! Our counsellor will contact you soon.',
-    });
+    };
+
+    // Only expose Ethereal preview links outside production (local verify)
+    if (process.env.NODE_ENV !== 'production' && result?.previewUrl) {
+      response.previewUrl = result.previewUrl;
+      response.mailMode = result.mode;
+    }
+
+    return Response.json(response);
   } catch (error) {
     console.error('[enquiry-error]', error);
 

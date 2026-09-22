@@ -33,13 +33,13 @@ pnpm install
 cp .env.example .env.local
 ```
 
-3. Fill SMTP settings in `.env.local` for enquiry emails (required — every form submit sends mail):
+3. Fill SMTP settings in `.env.local` for enquiry emails (required in production — every form submit sends mail):
 
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
 - `ENQUIRY_TO_EMAIL`, `ENQUIRY_FROM_EMAIL`
 - `NEXT_PUBLIC_WHATSAPP_NUMBER`, contact/social URLs
 
-For Gmail, use `smtp.gmail.com` + port `587`, and set `SMTP_PASS` to a Google App Password (2FA must be on). Without SMTP credentials, `/api/enquiry` returns 503.
+For Gmail, use `smtp.gmail.com` + port `587`, and set `SMTP_PASS` to a Google App Password (2FA must be on). Locally, if `SMTP_PASS` is empty, mail falls back to an Ethereal test inbox (preview URL in server logs / API response). Production requires real SMTP or returns 503.
 
 4. Run locally:
 
@@ -48,6 +48,12 @@ pnpm dev
 ```
 
 Open `http://localhost:3000`.
+
+5. Verify enquiry email (dev server must be running):
+
+```bash
+pnpm test:email
+```
 
 ## Notes
 

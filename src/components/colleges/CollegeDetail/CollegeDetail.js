@@ -2,7 +2,6 @@
 
 import {
   IconArrowLeft,
-  IconExternalLink,
   IconMapPin,
   IconPhone,
   IconStarFilled,
@@ -15,7 +14,6 @@ import AppButton from '@/components/common/AppButton/AppButton';
 import Container from '@/components/common/Container/Container';
 import ScrollReveal from '@/components/common/ScrollReveal/ScrollReveal';
 import EnquiryForm from '@/components/forms/EnquiryForm/EnquiryForm';
-import { getWhatsAppUrl } from '@/utils/helpers';
 
 import classes from './CollegeDetail.module.scss';
 
@@ -294,40 +292,29 @@ export default function CollegeDetail({ college }) {
             </HeroMotion>
 
             <HeroMotion className={classes.heroActions} delay={0.22}>
-              <AppButton
-                href={getWhatsAppUrl(`Hi, I want counselling for ${college.name}.`)}
-                external
-                variant="outline"
-                className={classes.secondaryCta}
-              >
-                Download Brochure
-              </AppButton>
+              {websiteUrl ? (
+                <AppButton
+                  href={websiteUrl}
+                  external
+                  variant="outline"
+                  className={classes.secondaryCta}
+                >
+                  Official Website
+                </AppButton>
+              ) : null}
               <AppButton href="#enquire" className={classes.primaryCta}>
                 Apply Now
               </AppButton>
             </HeroMotion>
 
-            {(websiteUrl || research.contact) && (
+            {research.contact ? (
               <HeroMotion className={classes.heroLinks} delay={0.26}>
-                {websiteUrl ? (
-                  <a
-                    href={websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classes.metaLink}
-                  >
-                    <IconExternalLink size={15} />
-                    Official website
-                  </a>
-                ) : null}
-                {research.contact ? (
-                  <span className={classes.metaItem}>
-                    <IconPhone size={15} />
-                    {research.contact}
-                  </span>
-                ) : null}
+                <span className={classes.metaItem}>
+                  <IconPhone size={15} />
+                  {research.contact}
+                </span>
               </HeroMotion>
-            )}
+            ) : null}
           </div>
 
           <HeroMotion className={classes.heroVisual} delay={0.12}>
@@ -440,20 +427,29 @@ export default function CollegeDetail({ college }) {
             <ScrollReveal as="article" id="cutoffs" className={classes.block} delay={0.04}>
               <SectionHeading title="Cutoffs" />
               {research.cutoffs?.length ? (
-                <div className={classes.cutoffList}>
-                  {research.cutoffs.map((item, index) => (
-                    <motion.div
-                      key={`${item.label}-${index}`}
-                      className={classes.cutoffRow}
-                      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.4 }}
-                      transition={{ delay: 0.03 * index, duration: 0.35, ease }}
-                    >
-                      <span>{item.label}</span>
-                      <strong>{item.value}</strong>
-                    </motion.div>
-                  ))}
+                <div className={classes.cutoffTableWrap}>
+                  <table className={classes.cutoffTable}>
+                    <thead>
+                      <tr>
+                        <th scope="col">Exam / Category</th>
+                        <th scope="col">Cutoff</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {research.cutoffs.map((item, index) => (
+                        <motion.tr
+                          key={`${item.label}-${index}`}
+                          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.4 }}
+                          transition={{ delay: 0.03 * index, duration: 0.35, ease }}
+                        >
+                          <td data-label="Exam / Category">{item.label}</td>
+                          <td data-label="Cutoff">{item.value}</td>
+                        </motion.tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               ) : (
                 <p className={classes.muted}>
