@@ -1,6 +1,8 @@
 @use '@/styles/typography.scss';
 
 :root {
+  --font-display: 'Outfit', 'Segoe UI', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   --brand-navy: #002d62;
   --brand-navy-mid: #0a3d7a;
   --brand-navy-soft: #1a4f8c;

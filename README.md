@@ -4,10 +4,11 @@ Premium education consultancy website for admissions guidance, career counsellin
 
 ## Tech stack
 
-- Next.js App Router (JavaScript)
+- Vite + React (SPA)
+- React Router
 - Mantine UI + SCSS Modules
 - Framer Motion
-- Nodemailer (enquiry email)
+- PHP enquiry endpoint (Hostinger Premium)
 
 ## Pages
 
@@ -15,9 +16,11 @@ Premium education consultancy website for admissions guidance, career counsellin
 - `/about` About Us
 - `/services` Services
 - `/colleges` College directory (search + filters)
-- `/colleges/[slug]` SEO college detail pages
+- `/colleges/:slug` College detail pages
+- `/courses/:slug` Course listing pages
 - `/contact` Contact + enquiry form
 - `/terms` Terms & Conditions
+- `/privacy` Privacy Policy
 
 ## Setup
 
@@ -33,30 +36,30 @@ pnpm install
 cp .env.example .env.local
 ```
 
-3. Fill SMTP settings in `.env.local` for enquiry emails (required in production — every form submit sends mail):
-
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
-- `ENQUIRY_TO_EMAIL`, `ENQUIRY_FROM_EMAIL`
-- `NEXT_PUBLIC_WHATSAPP_NUMBER`, contact/social URLs
-
-For Gmail, use `smtp.gmail.com` + port `587`, and set `SMTP_PASS` to a Google App Password (2FA must be on). Locally, if `SMTP_PASS` is empty, mail falls back to an Ethereal test inbox (preview URL in server logs / API response). Production requires real SMTP or returns 503.
-
-4. Run locally:
+3. Run locally:
 
 ```bash
 pnpm dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000`. Enquiry submits hit a local mock at `/api/enquiry.php`.
 
-5. Verify enquiry email (dev server must be running):
+## Production build (Hostinger Premium)
 
 ```bash
-pnpm test:email
+pnpm build
 ```
+
+Upload **everything inside `dist/`** to `public_html` (including `.htaccess` and `api/`).
+
+On the server:
+
+1. Copy `api/enquiry-config.example.php` → `api/enquiry-config.php`
+2. Set `to_email` / `from_email` (prefer a mailbox on your Hostinger domain for `from_email`)
+3. Ensure SSL is enabled for `edustudyconsultancy.com`
 
 ## Notes
 
-- No admin panel in this phase — colleges are seeded in `src/data/colleges.js` (42 entries).
-- Lead capture uses `/api/enquiry` with Indian mobile validation + honeypot spam protection.
+- No admin panel — colleges are seeded in `src/data/colleges.js`.
+- Lead capture posts to `/api/enquiry.php` (PHP `mail()` on Hostinger).
 - Branding: deep blue + gold + white.

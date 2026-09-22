@@ -109,9 +109,11 @@ export const contactPlaceholders = {
 
 export const socialLinks = {
   facebook:
+    import.meta.env.VITE_FACEBOOK_URL ||
     process.env.NEXT_PUBLIC_FACEBOOK_URL ||
     'https://www.facebook.com/profile.php?id=61594714647675',
   instagram:
+    import.meta.env.VITE_INSTAGRAM_URL ||
     process.env.NEXT_PUBLIC_INSTAGRAM_URL ||
     'https://www.instagram.com/EDUSTUDYWALA202226/',
   whatsapp: '',

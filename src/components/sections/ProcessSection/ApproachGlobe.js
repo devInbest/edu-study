@@ -1,13 +1,12 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { lazy, Suspense } from 'react';
 
 import classes from './ApproachGlobe.module.scss';
 
-const World = dynamic(() => import('@/components/ui/globe').then((mod) => mod.World), {
-  ssr: false,
-  loading: () => <div className={classes.placeholder} aria-hidden="true" />,
-});
+const World = lazy(() =>
+  import('@/components/ui/globe').then((mod) => ({ default: mod.World })),
+);
 
 const globeConfig = {
   pointSize: 4,
@@ -111,7 +110,9 @@ const sampleArcs = [
 export default function ApproachGlobe() {
   return (
     <div className={classes.wrap} aria-hidden="true">
-      <World globeConfig={globeConfig} data={sampleArcs} />
+      <Suspense fallback={<div className={classes.placeholder} aria-hidden="true" />}>
+        <World globeConfig={globeConfig} data={sampleArcs} />
+      </Suspense>
     </div>
   );
 }

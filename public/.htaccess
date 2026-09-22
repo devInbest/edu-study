@@ -1,0 +1,21 @@
+# SPA routing for React Router (Hostinger Apache)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Keep real files/folders (api PHP, assets)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Legacy course slug
+  RewriteRule ^courses/mbbs-md-ms/?$ /courses/mbbs [R=301,L]
+
+  # React Router fallback
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security headers (optional, safe defaults)
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>

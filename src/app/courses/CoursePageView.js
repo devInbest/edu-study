@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 
 import btechBanner from '@/assets/images/banners/courses-btech.jpg';
 import mbaBanner from '@/assets/images/banners/courses-mba.jpg';
@@ -10,9 +9,9 @@ import Container from '@/components/common/Container/Container';
 import PageBanner from '@/components/common/PageBanner/PageBanner';
 import CtaBanner from '@/components/sections/CtaBanner/CtaBanner';
 import { filterColleges } from '@/data/colleges';
-import { courseLinks, getCourseBySlug } from '@/data/courses';
+import { courseLinks } from '@/data/courses';
 
-import classes from './course.module.scss';
+import classes from './[slug]/course.module.scss';
 
 const courseBanners = {
   mbbs: {
@@ -33,28 +32,7 @@ const courseBanners = {
   },
 };
 
-export function generateStaticParams() {
-  return courseLinks.map((course) => ({ slug: course.slug }));
-}
-
-export async function generateMetadata({ params }) {
-  const { slug } = await params;
-  const course = getCourseBySlug(slug);
-  if (!course) {
-    return { title: 'Course not found' };
-  }
-
-  return {
-    title: course.title,
-    description: course.description,
-  };
-}
-
-export default async function CoursePage({ params }) {
-  const { slug } = await params;
-  const course = getCourseBySlug(slug);
-  if (!course) notFound();
-
+export default function CoursePageView({ course }) {
   const colleges = filterColleges({
     stream: course.stream,
     degrees: course.degrees || [],

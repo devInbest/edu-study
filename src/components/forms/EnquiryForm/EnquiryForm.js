@@ -111,7 +111,7 @@ export default function EnquiryForm({
     setServerMessage('');
 
     try {
-      const response = await fetch('/api/enquiry', {
+      const response = await fetch('/api/enquiry.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
